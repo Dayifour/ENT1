@@ -15,14 +15,13 @@ export default function page() {
             {/* partie input  */}
             <div className="mt-7 flex flex-col h-5/6 justify-between ">
               <h2>LOGIN</h2>
-
-              <div className="mb-4 relative">
+              <div className="mb-4 relative w-full">
                 <input
                   type="email"
                   id="email"
                   name="email"
                   placeholder="Email"
-                  className="pl-10 pr-4 py-2 border rounded-md w-64"
+                  className="pl-8 border rounded-md "
                 />
                 <FaEnvelope className="absolute left-3 top-2/3  transform -translate-y-1/2 text-gray-500" />
               </div>
@@ -32,7 +31,7 @@ export default function page() {
                   id="password"
                   name="password"
                   placeholder="Password"
-                  className="pl-10 pr-4 py-2 border rounded-md w-64"
+                  className="pl-8  border rounded-md "
                 />
                 <FaLock className="absolute left-3 top-2/3 transform -translate-y-1/2 text-gray-500" />
               </div>
@@ -42,7 +41,6 @@ export default function page() {
               <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8">
                 Envoyer
               </button>
-
               <span className="flex justify-between mt-1">
                 <Image
                   src={"img/icon-google.svg"}
