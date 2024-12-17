@@ -24,3 +24,32 @@ input {
   height: 50%;
   display: block;
 }
+@media (max-width: 798px) {
+  .partie2 {
+    display: none;
+  }
+  .partie1 {
+    width: 100%;
+    margin-right: 24px;
+  }
+  .login-icon {
+    width: 50%;
+  }
+}
+@media (max-width: 508px) {
+  .partie {
+    width: 100%;
+    height: 100vh;
+  }
+  .centre {
+    justify-content: center;
+    margin: 0;
+    height: 70%;
+  }
+  .phone {
+    margin: 8px;
+  }
+  .login-icon {
+    width: 50%;
+  }
+}

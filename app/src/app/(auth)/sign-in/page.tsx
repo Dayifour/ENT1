@@ -4,18 +4,18 @@ export default function page() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        <div className="w-3/5 h-3/5 bg-gray-500 bg-opacity-5 rounded-3xl  flex justify-between sm:grid-cols-2 lg:grid-cols-3">
+        <div className="w-3/5 h-3/5 max-w-2xl bg-gray-500 bg-opacity-5 rounded-3xl  flex justify-between sm:grid-cols-2 lg:grid-cols-3 partie">
           {/* partie droite */}
-          <div className="mt-6 ml-6 w-2/5">
+          <div className="mt-6 ml-6 w-2/5 partie1">
             {/* head */}
             <div className="flex">
               <img src="logo.ico" width={30} height={30} alt="Logo" />
               <h1>TECHNOLAB ISTA</h1>
             </div>
             {/* partie input  */}
-            <div className="mt-7 flex flex-col h-5/6 justify-between ">
+            <div className="mt-7 flex flex-col h-5/6 justify-between centre">
               <h2>LOGIN</h2>
-              <div className="mb-4 relative w-full">
+              <div className="mb-4 relative w-full phone">
                 <input
                   type="email"
                   id="email"
@@ -25,7 +25,7 @@ export default function page() {
                 />
                 <FaEnvelope className="absolute left-3 top-2/3  transform -translate-y-1/2 text-gray-500" />
               </div>
-              <div className="mb-4 relative">
+              <div className="mb-4 relative  w-full phone">
                 <input
                   type="password"
                   id="password"
@@ -38,10 +38,10 @@ export default function page() {
               <a href="" className="text-right text-cyan-500">
                 Mot de passe oublier
               </a>
-              <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8">
+              <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8 phone ">
                 Envoyer
               </button>
-              <span className="flex justify-between mt-1">
+              <span className="flex justify-between mt-1 phone login-icon">
                 <Image
                   src={"img/icon-google.svg"}
                   alt="icon"
@@ -64,7 +64,7 @@ export default function page() {
             </div>
           </div>
           {/* partie gauche  */}
-          <div className="flex rounded-2xl">
+          <div className="flex rounded-2xl partie2">
             <svg
               viewBox="0 0 566 840"
               xmlns="http://www.w3.org/2000/svg"
