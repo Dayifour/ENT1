@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <div className=" flex justify-between bg-slate-100 h-full fixed w-full">
       <Sidebar />
+
       <div>
         <Header />
       </div>

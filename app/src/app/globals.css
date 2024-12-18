@@ -13,7 +13,8 @@
     --foreground: #ededed;
   }
 }
-input {
+/* login-style */
+.login input {
   border: 1px solid rgb(60, 55, 55);
   border-radius: 18px;
   padding: 3px 8px;
@@ -24,19 +25,22 @@ input {
   height: 50%;
   display: block;
 }
-@media (max-width: 798px) {
+@media (max-width: 510px) {
   .partie2 {
+    display: none;
+  }
+  .list li a {
     display: none;
   }
   .partie1 {
     width: 100%;
-    margin-right: 24px;
+    margin-right: 60px;
   }
   .login-icon {
     width: 50%;
   }
 }
-@media (max-width: 508px) {
+@media (max-width: 450px) {
   .partie {
     width: 100%;
     height: 100vh;
@@ -51,5 +55,43 @@ input {
   }
   .login-icon {
     width: 50%;
+  }
+}
+/* dashboard-style */
+
+/* Styling for the input */
+.InputSEARCH {
+  border: 1px solid rgb(60, 55, 55);
+  border-radius: 18px;
+  padding: 3px 8px;
+  height: 30px;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Icon inside the input */
+.InputSEARCH + .absolute {
+  pointer-events: none; /* Ensure the icon doesn't block input clicks */
+}
+.list li span {
+  margin-left: 8%;
+}
+@media (max-width: 1069px) {
+  .sideHead h1 {
+    display: none;
+  }
+  .sideHead img {
+    width: 70px;
+    margin-left: 1%;
+    height: 50px;
+  }
+  header {
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 643px) {
+  .search {
+    margin-left: 46px;
   }
 }

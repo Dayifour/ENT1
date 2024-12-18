@@ -3,7 +3,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 export default function page() {
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen login">
         <div className="w-3/5 h-3/5 max-w-2xl bg-gray-500 bg-opacity-5 rounded-3xl  flex justify-between sm:grid-cols-2 lg:grid-cols-3 partie">
           {/* partie droite */}
           <div className="mt-6 ml-6 w-2/5 partie1">
