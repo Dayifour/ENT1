@@ -1,6 +1,10 @@
+"use client";
 import Image from "next/image";
+import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 export default function page() {
+  const [isFocused1, setIsFocused1] = useState(false);
+  const [isFocused2, setIsFocused2] = useState(false);
   return (
     <>
       <div className="flex justify-center items-center h-screen login">
@@ -15,25 +19,37 @@ export default function page() {
             {/* partie input  */}
             <div className="mt-7 flex flex-col h-5/6 justify-between centre">
               <h2>LOGIN</h2>
-              <div className="mb-4 relative w-full phone">
+              <div className="relative">
+                {/* Input */}
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  className="pl-8 border rounded-md "
+                  type="text"
+                  placeholder={!isFocused1 ? "Search..." : ""}
+                  onFocus={() => setIsFocused1(true)}
+                  onBlur={() => setIsFocused1(false)}
+                  className="InputSEARCH w-full pr-10"
                 />
-                <FaEnvelope className="absolute left-3 top-2/3  transform -translate-y-1/2 text-gray-500" />
+                {/* Icon */}
+                {!isFocused1 ? (
+                  <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="mb-4 relative  w-full phone">
+              <div className="relative">
+                {/* Input */}
                 <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  className="pl-8  border rounded-md "
+                  type="text"
+                  placeholder={!isFocused2 ? "Search..." : ""}
+                  onFocus={() => setIsFocused2(true)}
+                  onBlur={() => setIsFocused2(false)}
+                  className="InputSEARCH w-full pr-10"
                 />
-                <FaLock className="absolute left-3 top-2/3 transform -translate-y-1/2 text-gray-500" />
+                {/* Icon */}
+                {!isFocused2 ? (
+                  <FaLock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
+                ) : (
+                  ""
+                )}
               </div>
               <a href="" className="text-right text-cyan-500">
                 Mot de passe oublier

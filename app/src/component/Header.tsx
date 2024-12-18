@@ -19,7 +19,11 @@ export default function Header() {
               className="InputSEARCH w-full pr-10"
             />
             {/* Icon */}
-            <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
+            {!isFocused ? (
+              <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
+            ) : (
+              ""
+            )}
           </div>
         </div>
 
