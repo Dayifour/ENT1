@@ -59,19 +59,17 @@
 }
 /* dashboard-style */
 
-/* Styling for the input */
 .InputSEARCH {
   border: 1px solid rgb(60, 55, 55);
   border-radius: 18px;
   padding: 3px 8px;
   height: 30px;
   width: 100%;
-  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  box-sizing: border-box;
 }
 
-/* Icon inside the input */
 .InputSEARCH + .absolute {
-  pointer-events: none; /* Ensure the icon doesn't block input clicks */
+  pointer-events: none;
 }
 .list li span {
   margin-left: 8%;
