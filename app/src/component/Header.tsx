@@ -6,8 +6,8 @@ export default function Header() {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <>
-      <header className=" my-2 rounded-sm flex justify-between w-11/12 text-center fixed">
-        <div className="relative lg:ml-64 md:ml-52 sm:ml-40 h-8 search partie1">
+      <header className=" my-2 rounded-sm flex justify-between text-center fixed">
+        <div className="relative  h-8 search partie1">
           {/* Conteneur de l'input et de l'icône */}
           <div className="relative">
             {/* Input */}
@@ -31,7 +31,7 @@ export default function Header() {
           <div>
             <Icon icon="tabler:bell" />
           </div>
-          <div className="flex flex-col mr-2">
+          <div className="flex flex-col mr-1">
             <div className="text-base">Mamadou Ba</div>
             <div className="text-xs">Etudiant</div>
           </div>

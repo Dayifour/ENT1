@@ -25,7 +25,7 @@
   height: 50%;
   display: block;
 }
-@media (max-width: 510px) {
+@media (max-width: 789px) {
   .partie2 {
     display: none;
   }
@@ -33,14 +33,13 @@
     display: none;
   }
   .partie1 {
-    width: 100%;
-    margin-right: 60px;
+    width: 98%;
   }
   .login-icon {
     width: 50%;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 550px) {
   .partie {
     width: 100%;
     height: 100vh;
@@ -58,7 +57,9 @@
   }
 }
 /* dashboard-style */
-
+header {
+  width: 98%;
+}
 .InputSEARCH {
   border: 1px solid rgb(60, 55, 55);
   border-radius: 18px;
@@ -83,13 +84,8 @@
     margin-left: 1%;
     height: 50px;
   }
-  header {
-    margin-left: 60px;
-  }
 }
 
-@media (max-width: 643px) {
-  .search {
-    margin-left: 46px;
-  }
+.search {
+  margin-left: 19%;
 }

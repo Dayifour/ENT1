@@ -58,24 +58,45 @@ export default function page() {
                 Envoyer
               </button>
               <span className="flex justify-between mt-1 phone login-icon">
-                <Image
-                  src={"img/icon-google.svg"}
-                  alt="icon"
-                  width={30}
-                  height={30}
-                ></Image>
-                <Image
-                  src={"img/icon-facebook.svg"}
-                  alt="icon"
-                  width={30}
-                  height={30}
-                ></Image>
-                <Image
-                  src={"img/icon-apple.svg"}
-                  alt="icon"
-                  width={30}
-                  height={30}
-                ></Image>
+                <a
+                  href="https://www.technolab-ista.net/"
+                  title="google"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <Image
+                    src={"img/icon-google.svg"}
+                    alt="icon"
+                    width={30}
+                    height={30}
+                  ></Image>
+                </a>
+                <a
+                  href="https://www.facebook.com/TechnolabIstaOfficielle"
+                  title="facebook"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <Image
+                    src={"img/icon-facebook.svg"}
+                    alt="icon"
+                    width={30}
+                    height={30}
+                  ></Image>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/technolab-ista/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BBdr4ymZfTTixB3DRiIJXNw%3D%3D"
+                  title="linkedin"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <Image
+                    src={"img/icon-linkedin.svg"}
+                    alt="icon"
+                    width={30}
+                    height={30}
+                  ></Image>
+                </a>
               </span>
             </div>
           </div>
@@ -102,7 +123,7 @@ export default function page() {
       591.11 115.306 518.927 176.468 488.873C363.385 397.026 156.98 302.824 
       167.945 179.32C173.46 117.209 284.755 95.1699 342.407 73.6315Z"
                 />
-                <image href="/img/bg-img.jpg" width="800" height="850" />
+                <image href="/img/bg3.jpg" width="662" height="840" />
               </g>
             </svg>
           </div>
