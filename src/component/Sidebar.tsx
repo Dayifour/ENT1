@@ -16,7 +16,7 @@ export default function Sidebar() {
             </li>
             <li className="my-2 ml-2 hover:bg-green-300 rounded-lg w-4/5 py-2 pl-1 flex">
               <FaHome className="mr-2 w-7 h-7" />
-              <a href="">ajout</a>
+              <a href="">Liste</a>
             </li>
             <li className="my-2 ml-2 hover:bg-green-300 rounded-lg w-4/5 py-2 pl-1 flex">
               <FaHome className="mr-2 w-7 h-7" />
