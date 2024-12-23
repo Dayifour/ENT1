@@ -10,7 +10,7 @@ export default function page() {
       <div className="flex justify-center items-center h-screen login">
         <div className="w-3/5 h-3/5 max-w-2xl bg-gray-500 bg-opacity-5 rounded-3xl  flex justify-between sm:grid-cols-2 lg:grid-cols-3 partie">
           {/* partie droite */}
-          <div className="mt-6 ml-6 w-2/5 partie1">
+          <div className="mt-6 mx-3 w-2/5 partie1">
             {/* head */}
             <div className="flex">
               <img src="logo.ico" width={30} height={30} alt="Logo" />
@@ -23,10 +23,10 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="text"
-                  placeholder={!isFocused1 ? "Search..." : ""}
+                  placeholder={!isFocused1 ? "Email" : ""}
                   onFocus={() => setIsFocused1(true)}
                   onBlur={() => setIsFocused1(false)}
-                  className="InputSEARCH w-full pr-10"
+                  className="InputSEARCH w-full pr-10 mr-2"
                 />
                 {/* Icon */}
                 {!isFocused1 ? (
@@ -39,10 +39,10 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="text"
-                  placeholder={!isFocused2 ? "Search..." : ""}
+                  placeholder={!isFocused2 ? "Password" : ""}
                   onFocus={() => setIsFocused2(true)}
                   onBlur={() => setIsFocused2(false)}
-                  className="InputSEARCH w-full pr-10"
+                  className="InputSEARCH w-full pr-10 mr-5"
                 />
                 {/* Icon */}
                 {!isFocused2 ? (
