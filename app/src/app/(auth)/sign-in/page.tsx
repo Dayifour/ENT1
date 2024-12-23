@@ -23,7 +23,7 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="text"
-                  placeholder={!isFocused1 ? "Search..." : ""}
+                  placeholder={!isFocused1 ? "Email..." : ""}
                   onFocus={() => setIsFocused1(true)}
                   onBlur={() => setIsFocused1(false)}
                   className="InputSEARCH w-full pr-10"
@@ -39,7 +39,7 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="text"
-                  placeholder={!isFocused2 ? "Search..." : ""}
+                  placeholder={!isFocused2 ? "Password..." : ""}
                   onFocus={() => setIsFocused2(true)}
                   onBlur={() => setIsFocused2(false)}
                   className="InputSEARCH w-full pr-10"
