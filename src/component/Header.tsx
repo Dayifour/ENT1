@@ -6,7 +6,7 @@ export default function Header() {
   const [isFocused, setIsFocused] = useState(false);
   return (
     <>
-      <header className=" my-2 rounded-sm flex justify-between text-center fixed">
+      <header className="my-2 rounded-sm flex justify-between items-center text-center fixed">
         <div className="relative  h-8 search partie1">
           {/* Conteneur de l'input et de l'icône */}
           <div className="relative">
@@ -16,7 +16,7 @@ export default function Header() {
               placeholder={!isFocused ? "Search..." : ""}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className="InputSEARCH w-full pr-10"
+              className="InputSEARCH pr-10 p-2 rounded-lg outline-none"
             />
             {/* Icon */}
             {!isFocused ? (
@@ -27,7 +27,7 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex justify-between partie2">
+        <div className="flex justify-between items-center gap-2 partie2">
           <div>
             <Icon icon="tabler:bell" />
           </div>
