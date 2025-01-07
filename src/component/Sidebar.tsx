@@ -1,4 +1,5 @@
-import { FaHome } from "react-icons/fa";
+import { FaHollyBerry, FaHome, FaKey } from "react-icons/fa";
+import IconLien from "./IconLien";
 
 export default function Sidebar() {
   return (
@@ -10,18 +11,15 @@ export default function Sidebar() {
         </div>
         <div>
           <ul className="flex flex-col  my-4 list">
-            <li className="my-2 ml-2 hover:bg-green-300 rounded-lg w-4/5 py-2 pl-1 flex">
+            <IconLien text="home">
               <FaHome className="mr-2 w-7 h-7" />
-              <a href="">ajout</a>
-            </li>
-            <li className="my-2 ml-2 hover:bg-green-300 rounded-lg w-4/5 py-2 pl-1 flex">
-              <FaHome className="mr-2 w-7 h-7" />
-              <a href="">Liste</a>
-            </li>
-            <li className="my-2 ml-2 hover:bg-green-300 rounded-lg w-4/5 py-2 pl-1 flex">
-              <FaHome className="mr-2 w-7 h-7" />
-              <a href="">supp</a>
-            </li>
+            </IconLien>
+            <IconLien text="Etudiants">
+              <FaHollyBerry className="mr-2 w-7 h-7" />
+            </IconLien>
+            <IconLien text="Proffesseurs">
+              <FaKey className="mr-2 w-7 h-7" />
+            </IconLien>
           </ul>
         </div>
       </div>
