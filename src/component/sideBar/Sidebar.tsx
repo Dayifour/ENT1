@@ -1,5 +1,4 @@
-import { FaHollyBerry, FaHome, FaKey } from "react-icons/fa";
-import IconLien from "../IconLien/IconLien";
+import AdminNavbar from "../adminNavbar/AdminNavbar";
 
 export default function Sidebar() {
   return (
@@ -10,17 +9,7 @@ export default function Sidebar() {
           <h1 className="ml-4 text-opacity-100 ">TECHNOLAB ISTA</h1>
         </div>
         <div>
-          <ul className="flex flex-col  my-4 list">
-            <IconLien text="home">
-              <FaHome className="mr-2 w-7 h-7" />
-            </IconLien>
-            <IconLien text="Etudiants">
-              <FaHollyBerry className="mr-2 w-7 h-7" />
-            </IconLien>
-            <IconLien text="Proffesseurs">
-              <FaKey className="mr-2 w-7 h-7" />
-            </IconLien>
-          </ul>
+          <AdminNavbar />
         </div>
       </div>
     </>
