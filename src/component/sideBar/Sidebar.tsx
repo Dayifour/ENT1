@@ -1,5 +1,5 @@
 import { FaHollyBerry, FaHome, FaKey } from "react-icons/fa";
-import IconLien from "./IconLien";
+import IconLien from "../IconLien/IconLien";
 
 export default function Sidebar() {
   return (
