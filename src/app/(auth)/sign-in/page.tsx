@@ -2,11 +2,34 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
+import { json } from "stream/consumers";
+import { useRouter } from "next/navigation";
+
 export default function page() {
+  const route = useRouter();
+  const handleSub = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    const login = await fetch("/api/connexion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (login.ok) {
+      alert("marche");
+      route.push("./");
+    } else {
+      alert("erreur ");
+    }
+  };
   const [isFocused1, setIsFocused1] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   return (
-    <>
+    <form onSubmit={handleSub}>
       <div className="flex justify-center items-center h-screen login">
         <div className="w-3/5 h-3/5 max-w-2xl bg-gray-500 bg-opacity-5 rounded-3xl  flex justify-between sm:grid-cols-2 lg:grid-cols-3 partie">
           {/* partie droite */}
@@ -22,7 +45,7 @@ export default function page() {
               <div className="relative">
                 {/* Input */}
                 <input
-                  type="text"
+                  type="email"
                   placeholder={!isFocused1 ? "Email" : ""}
                   onFocus={() => setIsFocused1(true)}
                   onBlur={() => setIsFocused1(false)}
@@ -38,7 +61,7 @@ export default function page() {
               <div className="relative">
                 {/* Input */}
                 <input
-                  type="text"
+                  type="password"
                   placeholder={!isFocused2 ? "Password" : ""}
                   onFocus={() => setIsFocused2(true)}
                   onBlur={() => setIsFocused2(false)}
@@ -129,6 +152,6 @@ export default function page() {
           </div>
         </div>
       </div>
-    </>
+    </form>
   );
 }
