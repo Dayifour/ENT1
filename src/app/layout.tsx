@@ -34,9 +34,9 @@ export default function RootLayout({
           <div className="w-[300px]">
             <Sidebar />
           </div>
-          <div className="w-full h-screen overflow-scroll flex flex-col min-h-screen overflow-x-hidden">
+          <div className="w-full h-screen overflow-scroll flex-col min-h-screen overflow-x-hidden">
             <Header />
-            {children}
+            <div className="flex">{children}</div>
           </div>
         </div>
       </body>

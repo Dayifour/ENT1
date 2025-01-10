@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const UserCard = () => {
   return (
-    <div className="flex flex-col w-[600px] bg-userCard p-2 rounded-lg">
+    <div className="flex flex-col w-full h-[250px] bg-userCard p-2 justify-center rounded-lg">
       <div className="flex gap-10 items-start">
         <div className="w-[150px] h-[150px] relative rounded-full">
           <Image
