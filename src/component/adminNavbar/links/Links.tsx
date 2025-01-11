@@ -13,8 +13,6 @@ const Links = ({
   title: string;
 }) => {
   const currentPath = usePathname();
-  console.log(currentPath);
-  console.log(path);
 
   return (
     <Link
