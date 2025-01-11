@@ -4,7 +4,7 @@ import Links from "./links/Links";
 const links = [
   {
     image: "/icons/home.png",
-    path: "/home",
+    path: "/admin/home",
     title: "Acceuil",
   },
   {
@@ -18,7 +18,7 @@ const links = [
     title: "Enseignants",
   },
   {
-    image: "/icons/friends.png",
+    image: "/icons/graduation-cap.png",
     path: "/admin/etudiant",
     title: "Etudiant",
   },
@@ -61,15 +61,15 @@ const AdminNavbar = () => {
       </div>
       <div className="">
         <div className="flex flex-col  my-4 list">
-          <li className="mx-6 hover:bg-green-300 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
+          <li className="mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
             <Image src="/icons/user.png" width={20} height={20} alt="" />
             <p>Profil</p>
           </li>
-          <li className="mx-6 hover:bg-green-300 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
+          <li className="mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
             <Image src="/icons/settings.png" width={20} height={20} alt="" />
             <p>Paramètre</p>
           </li>
-          <li className="mx-6 hover:bg-green-300 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
+          <li className="mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
             <Image src="/icons/out.png" width={20} height={20} alt="" />
             <p>Déconnexion</p>
           </li>
