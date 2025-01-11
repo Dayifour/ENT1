@@ -1,7 +1,8 @@
-const EnseignantPage = () => {
-  return <div>
-    
-  </div>;
-};
+import EnseignantTable from "@/component/enseignantTable/enseignantTable";
+import { generateEnseignants } from "@/component/Json/EnseignantList";
 
-export default EnseignantPage;
+// Génération des données enseignants côté serveur
+export default function Page() {
+  const enseignants = generateEnseignants(500); // Génération des enseignants
+  return <EnseignantTable enseignants={enseignants} />; // Passer les enseignants au composant client
+}
