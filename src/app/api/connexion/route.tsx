@@ -9,12 +9,12 @@ export async function POST(req: { method: string; body: { email: any; password: 
       },
     });
     if (user) {
-      return new Response(JSON.stringify("Merci beaucoup"), {
+      return new Response(JSON.stringify("Connexion valid"), {
         status: 200,
       });
     } else {
       return new Response(JSON.stringify("nada"), {
-        status: 50,
+        status: 501,
       });
     }
   } else {

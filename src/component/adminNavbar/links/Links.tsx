@@ -16,7 +16,7 @@ const Links = ({
 
   return (
     <Link
-      className={`mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex ${
+      className={`mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 px-2 flex ${
         currentPath === path && "bg-green-300"
       }`}
       href={path}
