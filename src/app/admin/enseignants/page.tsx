@@ -1,5 +1,7 @@
 const EnseignantPage = () => {
-  return <div>EnseignantPage</div>;
+  return <div>
+    
+  </div>;
 };
 
 export default EnseignantPage;
