@@ -4,7 +4,7 @@ import Links from "./links/Links";
 const links = [
   {
     image: "/icons/home.png",
-    path: "/admin/home",
+    path: "/admin",
     title: "Acceuil",
   },
   {
