@@ -1,4 +1,4 @@
-import EnseignantTable from "@/component/enseignantTable/enseignantTable";
+import EnseignantTable from "@/component/enseignantTable/EnseignantTable";
 import { generateEnseignants } from "@/component/Json/EnseignantList";
 
 // Génération des données enseignants côté serveur

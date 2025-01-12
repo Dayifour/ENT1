@@ -158,7 +158,7 @@ model utilisateurs {
   date_creation  DateTime          @default(now())
   enseignant     enseignant?
   etudiants      etudiants?
-  role           role              @relation(fields: [id_role], references: [id_role], map: "Utilisateurs_id_role_fkey")
+  role           role @relation(fields: [id_role], references: [id_role], map: "Utilisateurs_id_role_fkey")
 
   @@index([id_role], map: "Utilisateurs_id_role_fkey")
 }
