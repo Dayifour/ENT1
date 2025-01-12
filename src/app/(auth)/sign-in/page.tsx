@@ -4,12 +4,13 @@ import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { json } from "stream/consumers";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 export default function page() {
   const route = useRouter();
-  const handleSub = async (e) => {
+  const handleSub = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
     console.log(data);
     const login = await fetch("/api/connexion", {
