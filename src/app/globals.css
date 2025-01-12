@@ -86,7 +86,9 @@ header {
     height: 50px;
   }
 }
-
+header {
+  width: 80%;
+}
 .search {
-  margin-left: 19%;
+  margin-left: 1%;
 }

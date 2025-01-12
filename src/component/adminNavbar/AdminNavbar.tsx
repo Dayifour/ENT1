@@ -19,7 +19,7 @@ const links = [
   },
   {
     image: "/icons/graduation-cap.png",
-    path: "/admin/etudiant",
+    path: "/admin/etudiants",
     title: "Etudiant",
   },
   {
