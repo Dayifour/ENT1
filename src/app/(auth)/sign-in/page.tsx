@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 
 export default function page() {
   const route = useRouter();
-  const handleSub = async (e) => {
+  const handleSub = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
     console.log(data);
     const login = await fetch("/api/connexion", {
