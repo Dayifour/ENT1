@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model annexes {
+  id_annexe Int        @id @default(autoincrement())
+  nom       String
+  adresse   String
+  ville     String?
+  region    String?
+  filieres  filieres[]
+}
+
+model cours {
+  id_cours          Int              @id @default(autoincrement())
+  id_filiere_module Int
+  id_professeur     Int
+  semestre          cours_semestre
+  annee_academique  String           @db.VarChar(9)
+  filieremodule     filieremodule    @relation(fields: [id_filiere_module], references: [id_filiere_module], map: "Cours_id_filiere_module_fkey")
+  enseignant        enseignant       @relation(fields: [id_professeur], references: [id], map: "Cours_id_professeur_fkey")
+  emploisdutemps    emploisdutemps[]
+  notes             notes[]
+
+  @@index([id_filiere_module], map: "Cours_id_filiere_module_fkey")
+  @@index([id_professeur], map: "Cours_id_professeur_fkey")
+}
+
+model emploisdutemps {
+  id_emploi   Int                 @id @default(autoincrement())
+  id_cours    Int
+  jour        emploisdutemps_jour
+  heure_debut DateTime
+  heure_fin   DateTime
+  salle       String?
+  cours       cours               @relation(fields: [id_cours], references: [id_cours], map: "EmploisDuTemps_id_cours_fkey")
+
+  @@index([id_cours], map: "EmploisDuTemps_id_cours_fkey")
+}
+
+model enseignant {
+  id             Int          @id @default(autoincrement())
+  matricule      String       @unique(map: "Enseignant_matricule_key")
+  id_utilisateur Int          @unique(map: "Enseignant_id_utilisateur_key")
+  specialite     String
+  cours          cours[]
+  utilisateurs   utilisateurs @relation(fields: [id_utilisateur], references: [id_utilisateur], map: "Enseignant_id_utilisateur_fkey")
+}
+
+model etudiants {
+  id             Int          @id @default(autoincrement())
+  matricule      String       @unique(map: "Etudiants_matricule_key")
+  id_utilisateur Int          @unique(map: "Etudiants_id_utilisateur_key")
+  date_naissance DateTime
+  id_filiere     Int
+  filieres       filieres     @relation(fields: [id_filiere], references: [id_filiere], map: "Etudiants_id_filiere_fkey")
+  utilisateurs   utilisateurs @relation(fields: [id_utilisateur], references: [id_utilisateur], map: "Etudiants_id_utilisateur_fkey")
+  notes          notes[]
+  paiements      paiements[]
+
+  @@index([id_filiere], map: "Etudiants_id_filiere_fkey")
+}
+
+model filieremodule {
+  id_filiere_module Int      @id @default(autoincrement())
+  syllabus          String?
+  id_filiere        Int
+  id_module         Int
+  cours             cours[]
+  filieres          filieres @relation(fields: [id_filiere], references: [id_filiere], map: "FiliereModule_id_filiere_fkey")
+  modules           modules  @relation(fields: [id_module], references: [id_module], map: "FiliereModule_id_module_fkey")
+
+  @@index([id_filiere], map: "FiliereModule_id_filiere_fkey")
+  @@index([id_module], map: "FiliereModule_id_module_fkey")
+}
+
+model filieres {
+  id_filiere    Int             @id @default(autoincrement())
+  nom           String
+  description   String?
+  niveau        filieres_niveau
+  id_annexe     Int?
+  etudiants     etudiants[]
+  filieremodule filieremodule[]
+  annexes       annexes?        @relation(fields: [id_annexe], references: [id_annexe], map: "Filieres_id_annexe_fkey")
+  modules       modules[]
+
+  @@index([id_annexe], map: "Filieres_id_annexe_fkey")
+}
+
+model modules {
+  id_module     Int             @id @default(autoincrement())
+  nom           String
+  code_module   String          @unique(map: "Modules_code_module_key")
+  description   String?
+  credits       Int
+  volumeHoraire Int?
+  id_filiere    Int?
+  filieremodule filieremodule[]
+  filieres      filieres?       @relation(fields: [id_filiere], references: [id_filiere], map: "Modules_id_filiere_fkey")
+
+  @@index([id_filiere], map: "Modules_id_filiere_fkey")
+}
+
+model notes {
+  id_note          Int       @id @default(autoincrement())
+  id_etudiant      Int
+  id_cours         Int
+  note_class       Float?
+  note_exam        Float?
+  commentaire      String?
+  annee_academique String    @db.VarChar(9)
+  date_saisie      DateTime  @default(now())
+  cours            cours     @relation(fields: [id_cours], references: [id_cours], map: "Notes_id_cours_fkey")
+  etudiants        etudiants @relation(fields: [id_etudiant], references: [id], map: "Notes_id_etudiant_fkey")
+
+  @@index([id_cours], map: "Notes_id_cours_fkey")
+  @@index([id_etudiant], map: "Notes_id_etudiant_fkey")
+}
+
+model paiements {
+  id_paiement        Int                     @id @default(autoincrement())
+  id_etudiant        Int
+  montant            Float
+  date_paiement      DateTime
+  type_paiement      paiements_type_paiement
+  reference_paiement String                  @unique(map: "Paiements_reference_paiement_key")
+  etudiants          etudiants               @relation(fields: [id_etudiant], references: [id], map: "Paiements_id_etudiant_fkey")
+
+  @@index([id_etudiant], map: "Paiements_id_etudiant_fkey")
+}
+
+model role {
+  id_role      Int            @id @default(autoincrement())
+  nom          String         @db.VarChar(50)
+  description  String?        @db.VarChar(50)
+  permissions  Json
+  utilisateurs utilisateurs[]
+}
+
+model utilisateurs {
+  id_utilisateur Int               @id @default(autoincrement())
+  nom            String
+  prenom         String
+  email          String            @unique(map: "Utilisateurs_email_key")
+  mot_de_passe   String
+  id_role        Int
+  sexe           utilisateurs_sexe
+  type           utilisateurs_type
+  telephone      String?           @db.VarChar(15)
+  adresse        String?
+  profil         String            @unique(map: "Utilisateurs_profil_key")
+  date_creation  DateTime          @default(now())
+  enseignant     enseignant?
+  etudiants      etudiants?
+  role           role @relation(fields: [id_role], references: [id_role], map: "Utilisateurs_id_role_fkey")
+
+  @@index([id_role], map: "Utilisateurs_id_role_fkey")
+}
+
+enum emploisdutemps_jour {
+  Lundi
+  Mardi
+  Mercredi
+  Jeudi
+  Vendredi
+  Samedi
+}
+
+enum filieres_niveau {
+  Primaire
+  Secondaire
+  Licence
+  Master1
+  Master2
+  Doctorat
+}
+
+enum cours_semestre {
+  Semestre1
+  Semestre2
+  Semestre3
+  Semestre4
+}
+
+enum paiements_type_paiement {
+  Inscription
+  Scolarite
+  Autre
+}
+
+enum utilisateurs_sexe {
+  M
+  F
+}
+
+enum utilisateurs_type {
+  Etudiant
+  Enseignant
+  Membre
+}
