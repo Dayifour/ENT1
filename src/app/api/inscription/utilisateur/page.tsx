@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { registerUser } from "@/actions/signupetudiant";
+import { registerUser } from "@/actions/signuputilisateur";
+
 
 export default function Register() {
   const [error, setError] = useState<string | null>(null);
@@ -16,16 +17,18 @@ export default function Register() {
 
     try {
       const result = await registerUser(formData);
-      setSuccess("Étudiant créé avec succès !");
+      setSuccess("Utilisateur créé avec succès !");
     } catch (err) {
-      setError("Erreur lors de la création de l'étudiant.");
+      setError("Erreur lors de la création de l'utilisateur.");
     }
   }
 
   return (
+    
+   
     <form onSubmit={handleSubmit}>
-      <br /><br /><br /><br />
-      <h1>Créer un étudiant</h1>
+      <br /><br /><br />
+      <h1>Créer un utilisateur</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
       <div>
@@ -56,6 +59,14 @@ export default function Register() {
         </select>
       </div>
       <div>
+        <label>Type :</label>
+        <select name="type" required>
+          <option value="Etudiant">Etudiant</option>
+          <option value="Enseignant">Enseignant</option>
+          <option value="Membre">Membre</option>
+        </select>
+      </div>
+      <div>
         <label>Téléphone :</label>
         <input type="text" name="telephone" />
       </div>
@@ -67,15 +78,9 @@ export default function Register() {
         <label>Profil :</label>
         <input type="text" name="profil" required />
       </div>
-      <div>
-        <label>Date de naissance :</label>
-        <input type="date" name="date_naissance" required />
-      </div>
-      <div>
-        <label>ID Filière :</label>
-        <input type="number" name="id_filiere" required />
-      </div>
       <button type="submit">Créer</button>
     </form>
+   
+  
   );
 }
