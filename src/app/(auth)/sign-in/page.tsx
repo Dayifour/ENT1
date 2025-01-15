@@ -1,10 +1,8 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { json } from "stream/consumers";
-import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function page() {
   const route = useRouter();
