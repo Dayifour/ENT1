@@ -1,6 +1,6 @@
 
-const page = () => {
-  return <div></div>;
+const Messagepage = () => {
+  return <div>Hello Word</div>;
 };
 
-export default page;
+export default Messagepage;
