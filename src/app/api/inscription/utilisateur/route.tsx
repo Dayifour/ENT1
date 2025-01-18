@@ -1,5 +1,3 @@
-"use server";
-
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -18,11 +16,9 @@ export async function POST(request: Request) {
       telephone,
       adresse,
       profil,
-      date_naissance, // Spécifique aux étudiants
-      id_filiere, // Spécifique aux étudiants
     } = body;
 
-    // Validation des données utilisateur
+    // Validation des données (simplifiée ici)
     if (
       !nom ||
       !prenom ||
@@ -37,7 +33,6 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
     // Vérifiez si l'email ou le profil existe déjà
     const existingUser = await prisma.utilisateurs.findFirst({
       where: {
@@ -52,8 +47,7 @@ export async function POST(request: Request) {
           : "Ce profil est déjà utilisé.";
       return NextResponse.json({ error: message }, { status: 400 });
     }
-
-    // Création d'un utilisateur dans la table `utilisateurs`
+    // Création d'un utilisateur dans la base de données
     const utilisateur = await prisma.utilisateurs.create({
       data: {
         nom,
@@ -69,40 +63,12 @@ export async function POST(request: Request) {
       },
     });
 
-    // Si l'utilisateur est de type "Etudiant", ajoutez les données dans `etudiants`
-    if (type === "Etudiant") {
-      // Validation des données spécifiques à l'étudiant
-      if (!date_naissance || !id_filiere) {
-        return NextResponse.json(
-          { error: "Les champs date de naissance et filière sont obligatoires pour les étudiants." },
-          { status: 400 }
-        );
-      }
-
-      const etudiant = await prisma.etudiants.create({
-        data: {
-          matricule: generateMatricule(), // Génère un matricule unique
-          id_utilisateur: utilisateur.id_utilisateur,
-          date_naissance: new Date(date_naissance),
-          id_filiere,
-        },
-      });
-
-      return NextResponse.json({ utilisateur, etudiant }, { status: 201 });
-    }
-
-    // Retourne uniquement les données utilisateur si ce n'est pas un étudiant
     return NextResponse.json(utilisateur, { status: 201 });
   } catch (error) {
-    console.error("Erreur lors de la création :", error);
+    console.error("Erreur lors de la création de l'utilisateur :", error);
     return NextResponse.json(
       { error: "Erreur interne au serveur" },
       { status: 500 }
     );
   }
-}
-
-// Fonction pour générer un matricule unique (exemple simple)
-function generateMatricule() {
-  return `ETU${Date.now()}`;
 }
