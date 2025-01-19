@@ -1,6 +1,9 @@
+"use client";
 import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 import UserCard from "@/component/userCard/UserCard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Calendar from "@/component/calendar/Calendar";
+import Emploie from "@/component/emploieTemps/Emploie";
 
 export default function Home() {
   const userData = {
@@ -17,7 +20,7 @@ export default function Home() {
       <div className="flex gap-5 min-h-[clac(100vh-100px)] items-start">
         <div className="flex flex-col gap-5 w-[600px] h-full">
           <UserCard item={userData} />
-          
+          <div w-full h-full><Emploie /></div>
         </div>
         <div className="flex flex-col gap-5 h-full">
           <div className="flex flex-col gap-5 h-[250px]">
@@ -41,10 +44,11 @@ export default function Home() {
               />
             </div>
           </div>
-          
+        </div>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <Calendar />
         </div>
       </div>
-      
     </div>
   );
 }
