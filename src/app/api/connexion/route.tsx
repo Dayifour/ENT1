@@ -1,29 +1,50 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-export async function POST(
-  req: { method: string; body: { email: any; password: any } },
-  res: any
-) {
-  if (req.method == "POST") {
-    const { email, password } = req.body;
-    const user = await prisma.utilisateurs.findUnique({
-      where: {
-        email,
-        //Le mot de passe doit être crypté c'est pour cela que je ne l'ai pas mis a vous de jouer je prepare le terrain
-      },
-    });
-    if (user) {
-      return new Response(JSON.stringify("Connexion valid"), {
-        status: 200,
-      });
-    } else {
-      return new Response(JSON.stringify("nada"), {
-        status: 501,
-      });
+
+export async function POST(req: Request) {
+  try {
+    // Lire et parser le corps de la requête
+    const body = await req.json();
+    const { email, password } = body;
+
+    // Validation des champs
+    if (!email || !password) {
+      return new Response(
+        JSON.stringify({ error: "Email et mot de passe sont requis" }),
+        { status: 400 }
+      );
     }
-  } else {
-    return new Response(JSON.stringify({ error: "Erreur" }), {
-      status: 401,
+
+    // Recherche de l'utilisateur
+    const user = await prisma.utilisateurs.findUnique({
+      where: { email }, // 'email' doit être unique dans le schéma Prisma
     });
+
+    if (!user) {
+      return new Response(
+        JSON.stringify({ error: "Utilisateur non trouvé" }),
+        { status: 404 }
+      );
+    }
+
+    // Vérification du mot de passe
+    if (user.mot_de_passe !== password) {
+      return new Response(
+        JSON.stringify({ error: "Mot de passe incorrect" }),
+        { status: 401 }
+      );
+    }
+
+    // Connexion réussie
+    return new Response(
+      JSON.stringify({ message: "Connexion réussie", user }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Erreur lors de la connexion :", error);
+    return new Response(
+      JSON.stringify({ error: "Erreur interne du serveur" }),
+      { status: 500 }
+    );
   }
 }
