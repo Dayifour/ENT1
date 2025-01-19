@@ -4,27 +4,38 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 
-export default function page() {
+export default function Page() {
   const route = useRouter();
+
   const handleSub = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
-    console.log(data);
+  
+    // Renommez le champ pour correspondre à ce que le backend attend
+    const payload = {
+      email: data.email,
+      password: data.mot_de_passe, // Correspond au champ attendu côté serveur
+    };
+  
+    console.log("Payload envoyé :", payload); // Debugging
+  
     const login = await fetch("/api/connexion", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload), // Envoyez le bon format
     });
+  
     if (login.ok) {
-      alert("marche");
+      alert("Connexion réussie");
       route.push("./");
     } else {
-      alert("erreur ");
+      alert("Erreur de connexion");
     }
   };
+  
   const [isFocused1, setIsFocused1] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   return (
@@ -45,6 +56,7 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="email"
+                  name="email"
                   placeholder={!isFocused1 ? "Email" : ""}
                   onFocus={() => setIsFocused1(true)}
                   onBlur={() => setIsFocused1(false)}
@@ -61,6 +73,7 @@ export default function page() {
                 {/* Input */}
                 <input
                   type="password"
+                  name="mot_de_passe"
                   placeholder={!isFocused2 ? "Password" : ""}
                   onFocus={() => setIsFocused2(true)}
                   onBlur={() => setIsFocused2(false)}
@@ -76,7 +89,7 @@ export default function page() {
               <a href="" className="text-right text-cyan-500">
                 Mot de passe oublier
               </a>
-              <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8 phone ">
+              <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8 phone " type="submit">
                 Envoyer
               </button>
               <span className="flex justify-between mt-1 phone login-icon">
