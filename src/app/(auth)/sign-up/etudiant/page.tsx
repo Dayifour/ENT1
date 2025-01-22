@@ -1,3 +1,4 @@
+'use client'
 import { registerUser } from "@/actions/signupetudiant";
 import { useState } from "react";
 
