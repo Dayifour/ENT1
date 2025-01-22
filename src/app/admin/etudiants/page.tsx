@@ -1,3 +1,4 @@
+
 import EtudiantTable from "@/component/etudiantTable/EtudiantTable";
 import { generateEtudiants } from "@/component/Json/EtudiantList";
 
