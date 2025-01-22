@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const userRole = "admin";
+const userRole: string = "admin";
 const page = () => {
   const router = useRouter();
 
