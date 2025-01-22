@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import { registerUser } from "@/actions/signupetudiant";
+import { useState } from "react";
 
 export default function Register() {
   const [error, setError] = useState<string | null>(null);

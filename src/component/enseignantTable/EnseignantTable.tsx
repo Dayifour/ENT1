@@ -167,11 +167,12 @@ const EnseignantTable = ({
           </button>
         </div>
       </div>
+      
       {/* Overlay et formulaire modal pour Enseignant */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={toggleModal}
+          onClick={toggleModal} 
         >
           <div
             className="bg-white rounded-lg p-2 shadow-lg lg:px-8 lg:py-4 relative"
