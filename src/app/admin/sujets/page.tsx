@@ -1,8 +1,9 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 // Fonction pour générer des données fictives pour les modules
-export const generateModules = (count) => {
+export const generateModules = (count: number) => {
   const modules = [];
   const enseignants = [
     "Drissa Kouma",
@@ -38,7 +39,7 @@ const TableComponent = () => {
 
   useEffect(() => {
     // Génération de données au chargement du composant
-    const generatedData = generateModules(100);
+    const generatedData = generateModules(101);
     setData(generatedData);
   }, []);
 
@@ -59,68 +60,89 @@ const TableComponent = () => {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h3>Liste des Modules</h3>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Nom Module
-            </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Enseignants
-            </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Classes
-            </th>
-            <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRows.map((row) => (
-            <tr key={row.id}>
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                {row.nomModule}
-              </td>
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                {row.enseignant}
-              </td>
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                {row.classe}
-              </td>
-              <td
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  textAlign: "center",
-                }}
-              >
-                <button style={{ marginRight: "5px" }}>✏️</button>
-                <button>🗑️</button>
-              </td>
+    <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
+      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+        <h3 className="text-3xl font-medium">Liste des Modules</h3>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead className="bg-blue-100">
+            <tr>
+              <th style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                Nom Module
+              </th>
+              <th style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                Enseignants
+              </th>
+              <th style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                Classes
+              </th>
+              <th style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div
-        style={{
-          marginTop: "10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          ◀️
-        </button>
-        <span>
-          Page {currentPage} sur {totalPages}
-        </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          ▶️
-        </button>
+          </thead>
+          <tbody>
+            {currentRows.map((row: any) => (
+              <tr key={row.id}>
+                <td style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                  {row.nomModule}
+                </td>
+                <td style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                  {row.enseignant}
+                </td>
+                <td style={{ border: "1px solid #ddd", padding: "10px 25px" }}>
+                  {row.classe}
+                </td>
+                <td
+                  className=" flex gap-3 border-1 py-[14px] px-[25px] text-center border border-[#ddd]"
+                  // style={{
+                  //   border: "1px solid #ddd",
+                  //   padding: "10px 25px",
+                  //   textAlign: "center",
+                  // }}
+                >
+                  <Image
+                    src="/icons/pencil.png"
+                    alt=""
+                    width={20}
+                    height={20}
+                  />
+                  <Image
+                    src="/icons/delete.png"
+                    alt=""
+                    width={20}
+                    height={20}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div
+          style={{
+            marginTop: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <button
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
+            className="text-white bg-blue-500 bg-opacity-95 rounded-lg px-3 py-1"
+          >
+            Précedent
+          </button>
+          <span>
+            Page {currentPage} sur {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className="text-white bg-blue-500 bg-opacity-95 rounded-lg px-3 py-1"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
     </div>
   );
