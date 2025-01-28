@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export async function registerUser(formData: FormData) {
+export async function registerUser(formData: FormData) { 
   try {
     const nom = formData.get("nom") as string;
     const prenom = formData.get("prenom") as string;
