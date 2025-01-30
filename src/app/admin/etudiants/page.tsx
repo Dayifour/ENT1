@@ -1,10 +1,9 @@
 
 import EtudiantTable from "@/component/etudiantTable/EtudiantTable";
-import { generateEtudiants } from "@/component/Json/EtudiantList";
+
 
 const EtudiantPage = () => {
-  const etudiants = generateEtudiants(500); // Génération des enseignants
-  return <EtudiantTable etudiants={etudiants} />; // Passer les enseignants au composant client
+  return <EtudiantTable  />; // L'interface de la page etudiant avec la table des etudiants cest a dire la liste des etudiants
 };
 
 export default EtudiantPage;
