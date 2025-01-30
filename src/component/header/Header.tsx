@@ -1,23 +1,23 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 export default function Header() {
   const [isFocused, setIsFocused] = useState(false);
 
-  const [dateTime, setDateTime] = useState(new Date());
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDateTime(new Date());
-    }, 1000);
+  // const [dateTime, setDateTime] = useState(new Date());
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setDateTime(new Date());
+  //   }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
   return (
     <>
       <header className="my-2 rounded-sm flex justify-between items-center text-center fixed">
         <div className="relative  h-8 search partie1">
-          <div className="date-time">
+          {/* <div className="date-time">
             {dateTime.toLocaleString("fr-FR", {
               timeZone: "Africa/Bamako",
               weekday: "long",
@@ -28,24 +28,24 @@ export default function Header() {
               minute: "2-digit",
               second: "2-digit",
             })}
-          </div>
+          </div> */}
           {/* Conteneur de l'input et de l'icône */}
-          {/* <div className="relative"> */}
-          {/* Input */}
-          {/* <input
+          <div className="relative">
+            {/* Input */}
+            <input
               type="text"
               placeholder={!isFocused ? "Search..." : ""}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               className="InputSEARCH pr-10 p-2 rounded-lg outline-none"
-            /> */}
-          {/* Icon */}
-          {/* {!isFocused ? (
+            />
+            {/* Icon */}
+            {!isFocused ? (
               <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300" />
             ) : (
               ""
             )}
-          </div> */}
+          </div>
         </div>
         <div className="flex justify-between items-center gap-2 partie2">
           <div>

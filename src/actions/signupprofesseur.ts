@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export async function registerUser(formData: FormData) { 
+export async function registerTeacher(formData: FormData) {
   try {
     const nom = formData.get("nom") as string;
     const prenom = formData.get("prenom") as string;
@@ -13,11 +13,11 @@ export async function registerUser(formData: FormData) {
     const telephone = formData.get("telephone") as string | null;
     const adresse = formData.get("adresse") as string | null;
     const profil = formData.get("profil") as string;
-    const date_naissance = formData.get("date_naissance") as string;
-    const id_filiere = parseInt(formData.get("id_filiere") as string, 10);
+    const specialite = formData.get("specialite") as string;
+    const cours = JSON.parse(formData.get("cours") as string); // Tableau de cours (au format JSON)
 
-    // Appelle l'API pour inscrire l'étudiant
-    const res = await fetch(`${process.env.URL_BASE}/api/inscription/etudiant`, {
+    // Appelle l'API pour inscrire l'enseignant
+    const res = await fetch(`${process.env.URL_BASE}/api/inscription/prof`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,19 +32,19 @@ export async function registerUser(formData: FormData) {
         telephone,
         adresse,
         profil,
-        type: "Etudiant",
-        date_naissance,
-        id_filiere,
+        type: "Enseignant",
+        specialite,
+        cours,
       }),
     });
 
     if (!res.ok) {
-      throw new Error("Erreur lors de la création de l'étudiant");
+      throw new Error("Erreur lors de la création de l'enseignant");
     }
 
     return await res.json();
   } catch (error) {
-    console.error("Erreur dans registerUser:", error);
+    console.error("Erreur dans registerTeacher:", error);
     throw error;
   }
 }

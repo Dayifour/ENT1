@@ -1,5 +1,7 @@
-import { registerTeacher } from "@/actions/signupprofesseur";
+"use client";
+
 import { useState } from "react";
+import { registerTeacher } from "@/actions/signupprofesseur";
 
 export default function RegisterTeacher() {
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,6 @@ export default function RegisterTeacher() {
   }
 
   return (
-    <div>
     <form onSubmit={handleSubmit}>
       <br /><br /><br /><br />
       <h1>Créer un enseignant</h1>
@@ -80,6 +81,5 @@ export default function RegisterTeacher() {
       </div>
       <button type="submit">Créer</button>
     </form>
-    </div>
   );
 }

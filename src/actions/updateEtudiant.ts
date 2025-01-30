@@ -1,8 +1,6 @@
 "use server";
 
-import prisma from "@/lib/prisma";
-
-export async function registerUser(formData: FormData) { 
+export async function updateUser(id: number, formData: FormData) { 
   try {
     const nom = formData.get("nom") as string;
     const prenom = formData.get("prenom") as string;
@@ -16,9 +14,8 @@ export async function registerUser(formData: FormData) {
     const date_naissance = formData.get("date_naissance") as string;
     const id_filiere = parseInt(formData.get("id_filiere") as string, 10);
 
-    // Appelle l'API pour inscrire l'étudiant
-    const res = await fetch(`${process.env.URL_BASE}/api/inscription/etudiant`, {
-      method: "POST",
+    const res = await fetch(`${process.env.URL_BASE}/api/etudiants/${id}`, {
+      method: "PUT",  // ou PATCH si ton API supporte partiellement l'update
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,12 +36,12 @@ export async function registerUser(formData: FormData) {
     });
 
     if (!res.ok) {
-      throw new Error("Erreur lors de la création de l'étudiant");
+      throw new Error("Erreur lors de la mise à jour de l'étudiant");
     }
 
     return await res.json();
   } catch (error) {
-    console.error("Erreur dans registerUser:", error);
+    console.error("Erreur dans updateUser:", error);
     throw error;
   }
 }
