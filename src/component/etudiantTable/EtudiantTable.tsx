@@ -1,25 +1,30 @@
 "use client";
 //TODO : Note Important //TODO J'ai changé tout les p-2 en p-3 pour que la table soit plus grande
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { registerUser } from "@/actions/signupetudiant";
 import RegisterFormEtudiant from "@/component/formulaires/RegisterFormEtudiant ";
 
+// PErmet de definir le type d'un etudiant 
 type EtudiantType = {
-  id: string;
+  id: number;
+  utilisateurs: {
   nom: string;
+  prenom: string;
   email: string;
-  image: string;
-  // modules: string;
-  classes: string;
   telephone: string;
   adresse: string;
+  profil: string;
+  };
+  filieres: {
+    nom: string;
+  };
 };
 
-const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
-  const handleRegisterSubmit = async (formData: FormData) => {
-    await registerUser(formData);
-  };
+
+const EtudiantTable = () => {
+  const [etudiants, setEtudiants] = useState<EtudiantType[]>([]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
 
@@ -35,15 +40,31 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  // Filtrer les etudiants selon la recherche
+  // Recuperer les etudiants depuis l'API qui se trouve dans le dossier api puis dans le fichier recuperation
+  useEffect(() => {
+    const fetchEtudiants = async () => {
+      const res = await fetch("/api/recuperation");
+      if (!res.ok) {
+        console.log("Erreur API :", res.status);
+        return;
+      }
+      const data = await res.json();
+      console.log("Donnees recuperees :", data);
+      setEtudiants(data);
+    };
+
+    fetchEtudiants();
+  }, []);
+
+  // Filtrer les etudiants selon la recherche de l'utilisateur
   const filteredEtudiants = etudiants.filter(
     (etudiant) =>
-      etudiant.nom.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.email.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.nom.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.email.toLowerCase().includes(search.toLowerCase()) ||
       // etudiant.modules.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.classes.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.adresse.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.telephone.includes(search)
+      etudiant.utilisateurs.telephone.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.adresse.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.telephone.includes(search)
   );
 
   // Pagination
@@ -67,6 +88,11 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
     setSearch(e.target.value);
     setCurrentPage(1);
   };
+
+  const handleRegisterSubmit = async (formData: FormData) => {
+    await registerUser(formData);
+  };
+  
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
@@ -102,9 +128,9 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
               <tr key={etudiant.id} className="border-b-2 border-b-gray-400">
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    {etudiant.image ? (
+                    {etudiant.utilisateurs.profil ? (
                       <img
-                        src={etudiant.image}
+                        src={etudiant.utilisateurs.profil}
                         alt=""
                         className="w-8 h-8 rounded-full"
                       />
@@ -116,18 +142,18 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
                       />
                     )}
                     <div>
-                      <div>{etudiant.nom}</div>
+                      <div>{etudiant.utilisateurs.nom} {etudiant.utilisateurs.prenom}</div>
                       <div className="text-sm text-gray-500">
-                        {etudiant.email}
+                        {etudiant.utilisateurs.email}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="p-3">{etudiant.id}</td>
                 {/* <td className="p-3">{etudiant.modules}</td> */}
-                <td className="p-3">{etudiant.classes}</td>
-                <td className="p-3">{etudiant.telephone}</td>
-                <td className="p-3">{etudiant.adresse}</td>
+                <td className="p-3">{etudiant.filieres.nom}</td>
+                <td className="p-3">{etudiant.utilisateurs.telephone}</td>
+                <td className="p-3">{etudiant.utilisateurs.adresse}</td>
                 <td className="p-3">
                   <div className="flex gap-3">
                     <Image
@@ -182,19 +208,16 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
           onClick={toggleModal}
         >
-          fdfdf
           
           <div
             className="bg-white rounded-lg p-3 shadow-lg lg:px-8 lg:py-4 relative"
             onClick={(e) => e.stopPropagation()}
           >
-            hello
-          <RegisterFormEtudiant
-        onSubmit={handleRegisterSubmit}
-        title="Inscription d'un nouvel étudiant"
-      />
+            <RegisterFormEtudiant
+              onSubmit={handleRegisterSubmit}
+              title="Inscription d'un nouvel étudiant"
+            />
           </div>
-         
         </div>
       )}
       {isSur && (
@@ -229,8 +252,7 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
       )}
     </div>
   );
-}
-
+};
 
 function RegisterPage() {
   const handleRegisterSubmit = async (formData: FormData) => {

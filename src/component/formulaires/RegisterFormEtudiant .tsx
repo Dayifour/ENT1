@@ -1,5 +1,5 @@
 "use client";
-// j'ai ransformer mon formulaire en omposan
+// j'ai ransformer mon formulaire en composant pour pouvoir l'utiliser dans plusieurs pages
 import { useState } from "react";
 import { registerUser } from "@/actions/signupetudiant";
 type RegisterFormProps = {
