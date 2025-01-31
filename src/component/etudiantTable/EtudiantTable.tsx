@@ -279,7 +279,7 @@ const EtudiantTable = () => {
                   </button>
                 </div>
               </div>
-            </form>
+            </form> 
           </div>
         </div>
       )}

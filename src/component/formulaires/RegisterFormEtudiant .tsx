@@ -13,7 +13,7 @@ const RegisterFormEtudiant = ({ onSubmit, title = "Créer un étudiant" }: Regis
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
+    setError(null); 
     setSuccess(null);
 
     const formData = new FormData(event.currentTarget);

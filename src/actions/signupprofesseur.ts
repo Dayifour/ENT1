@@ -14,7 +14,7 @@ export async function registerTeacher(formData: FormData) {
     const adresse = formData.get("adresse") as string | null;
     const profil = formData.get("profil") as string;
     const specialite = formData.get("specialite") as string;
-    const cours = JSON.parse(formData.get("cours") as string); // Tableau de cours (au format JSON)
+    const cours = formData.get("cours") as string; // Tableau de cours (au format JSON)
 
     // Appelle l'API pour inscrire l'enseignant
     const res = await fetch(`${process.env.URL_BASE}/api/inscription/prof`, {
