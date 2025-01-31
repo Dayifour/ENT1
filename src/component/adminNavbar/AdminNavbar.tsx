@@ -1,50 +1,20 @@
+"use client";
+import { UserContext } from "@/hooks/useUser";
 import Image from "next/image";
+import { useContext } from "react";
 import Links from "./links/Links";
-
-const links = [
-  {
-    image: "/icons/home.png",
-    path: "/admin",
-    title: "Acceuil",
-  },
-  {
-    image: "/icons/presentation.png",
-    path: "/admin/classes",
-    title: "Classes",
-  },
-  {
-    image: "/icons/friends.png",
-    path: "/admin/enseignants",
-    title: "Enseignants",
-  },
-  {
-    image: "/icons/graduation-cap.png",
-    path: "/admin/etudiants",
-    title: "Etudiant",
-  },
-  {
-    image: "/icons/promotion.png",
-    path: "/admin/annonces",
-    title: "Annonces",
-  },
-  {
-    image: "/icons/grades.png",
-    path: "/admin/result",
-    title: "Résulat",
-  },
-  {
-    image: "/icons/email.png",
-    path: "/admin/messages",
-    title: "Messages",
-  },
-  {
-    image: "/icons/assessment.png",
-    path: "/admin/sujets",
-    title: "Sujets",
-  },
-];
+import { AdminLinks, EtudiantLinks, ProfesseurLinks } from "./UsersLinks";
 
 const AdminNavbar = () => {
+  const user = useContext(UserContext);
+  let links: any[] = [];
+  user.userRole === "admin"
+    ? (links = AdminLinks)
+    : user.userRole === "professeur"
+    ? (links = ProfesseurLinks)
+    : user.userRole === "etudiant"
+    ? (links = EtudiantLinks)
+    : (links = []);
   return (
     <div className="flex flex-col gap-10 justify-center items-start">
       <div className="">
