@@ -1,4 +1,4 @@
- export const generateEtudiants = (count: number) => {
+  export const generateEtudiants = (count: number) => {
   const etudiant = [];
   const noms = [
     "Kadidia",

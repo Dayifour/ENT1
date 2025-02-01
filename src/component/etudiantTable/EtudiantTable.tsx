@@ -77,6 +77,14 @@ const EtudiantTable = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentEtudiants = filteredEtudiants.slice(indexOfFirstItem, indexOfLastItem);
 
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
   // Gérer la recherche
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
