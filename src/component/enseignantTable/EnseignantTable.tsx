@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { registerTeacher } from "@/actions/signupprofesseur";
 import RegisterFormEnseignant from "../formulaires/FormulaireProf";
 
-
-type EnseingantType = {
+type EnseignantType = {
   id: number;
   utilisateurs: {
     nom: string;
@@ -15,17 +14,24 @@ type EnseingantType = {
     telephone: string;
     adresse: string;
     profil: string;
-  }
-    cours: {
-      filieremodule: string;
-    },
+  };
+  cours: {
+    filieremodule: {
+      syllabus: string;
+      filieres: {
+        nom: string;
+      };
+      modules: {
+        nom: string;
+      };
+    };
+  }[];
 };
- 
+
 const EnseignantTable = () => {
-  const [enseignants, setEnseigants] = useState<EnseingantType[]>([]);
+  const [enseignants, setEnseignants] = useState<EnseignantType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
- 
 
   const toggleIsSur = () => {
     setIsSur(!isSur);
@@ -34,9 +40,10 @@ const EnseignantTable = () => {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+
   const handleRegisterSubmit = async (formData: FormData) => {
-      await registerTeacher(formData);
-    };
+    await registerTeacher(formData);
+  };
 
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,11 +52,30 @@ const EnseignantTable = () => {
   // Filtrer les enseignants selon la recherche
   const filteredEnseignants = enseignants.filter(
     (enseignant) =>
-      enseignant.utilisateurs.nom.toLowerCase().includes(search.toLowerCase()) ||
-      enseignant.utilisateurs.email.toLowerCase().includes(search.toLowerCase()) ||
-      enseignant.cours.filieremodule.toLowerCase().includes(search.toLowerCase()) ||
-     // enseignant.utilisateurs.classes.toLowerCase().includes(search.toLowerCase()) ||
-      enseignant.utilisateurs.adresse.toLowerCase().includes(search.toLowerCase()) ||
+      enseignant.utilisateurs.nom
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      enseignant.utilisateurs.email
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      enseignant.cours.some((cours) =>
+        cours.filieremodule.filieres.nom
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      ) ||
+      enseignant.cours.some((cours) =>
+        cours.filieremodule.syllabus
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      ) ||
+      enseignant.cours.some((cours) =>
+        cours.filieremodule.modules.nom
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      ) ||
+      enseignant.utilisateurs.adresse
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
       enseignant.utilisateurs.telephone.includes(search)
   );
 
@@ -61,6 +87,7 @@ const EnseignantTable = () => {
     indexOfFirstItem,
     indexOfLastItem
   );
+  console.log(currentEnseignants);
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -74,23 +101,22 @@ const EnseignantTable = () => {
     setSearch(e.target.value);
     setCurrentPage(1);
   };
-  // Récupérer les étudiants depuis l'API
-    useEffect(() => {
-      const fetchEnseignant = async () => {
-        const res = await fetch("/api/recuperationEnseignant");
-        if (!res.ok) {
-          console.log("Erreur API :", res.status);
-          return;
-        }
-        const data = await res.json();
-        console.log("Données récupérées :", data);
-        setEnseigants(data);
-      };
-  
-      fetchEnseignant();
-    }, []);
 
- 
+  // Récupérer les enseignants depuis l'API
+  useEffect(() => {
+    const fetchEnseignants = async () => {
+      const res = await fetch("/api/recuperationEnseignant");
+      if (!res.ok) {
+        console.log("Erreur API :", res.status);
+        return;
+      }
+      const data = await res.json();
+      console.log("Données récupérées :", data);
+      setEnseignants(data);
+    };
+
+    fetchEnseignants();
+  }, []);
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
@@ -139,7 +165,10 @@ const EnseignantTable = () => {
                       />
                     )}
                     <div>
-                      <div>{enseignant.utilisateurs.nom} {enseignant.utilisateurs.prenom}</div>
+                      <div>
+                        {enseignant.utilisateurs.nom}{" "}
+                        {enseignant.utilisateurs.prenom}
+                      </div>
                       <div className="text-sm text-gray-500">
                         {enseignant.utilisateurs.email}
                       </div>
@@ -147,22 +176,34 @@ const EnseignantTable = () => {
                   </div>
                 </td>
                 <td className="p-2">{enseignant.id}</td>
-                <td className="p-2">{enseignant.cours.filieremodule}</td>
-                <td className="p-2">{enseignant.cours.filieremodule}</td>
+                <td className="p-2">
+                  {enseignant.cours.map((cours) => (
+                    <div key={cours.filieremodule?.modules.nom}>
+                      {cours.filieremodule?.modules.nom || "N/A"}
+                    </div>
+                  ))}
+                </td>
+                <td className="p-2">
+                  {enseignant.cours.map((cours) => (
+                    <div key={cours.filieremodule?.filieres.nom}>
+                      {cours.filieremodule?.filieres.nom || "N/A"}
+                    </div>
+                  ))}
+                </td>
                 <td className="p-2">{enseignant.utilisateurs.telephone}</td>
                 <td className="p-2">{enseignant.utilisateurs.adresse}</td>
                 <td className="p-2">
                   <div className="flex gap-2">
                     <Image
                       src="/icons/pencil.png"
-                      alt="delete"
+                      alt="edit"
                       width={20}
                       height={20}
                       onClick={toggleIsSur}
                     />
                     <Image
                       src="/icons/eye.png"
-                      alt="delete"
+                      alt="view"
                       width={20}
                       height={20}
                     />
@@ -210,7 +251,7 @@ const EnseignantTable = () => {
             className="bg-white rounded-lg p-2 shadow-lg lg:px-8 lg:py-4 relative"
             onClick={(e) => e.stopPropagation()}
           >
-             <RegisterFormEnseignant
+            <RegisterFormEnseignant
               onSubmit={handleRegisterSubmit}
               title="Inscription d'un nouveau Enseignant"
             />
