@@ -1,25 +1,42 @@
 "use client";
-
-// TODO : Note Importante //TODO J'ai changé tous les p-2 en p-3 pour que la table soit plus grande
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { registerUser } from "@/actions/signupetudiant";
-// import RegisterFormEtudiant from "@/component/formulaires/RegisterFormEtudiant";
+// import RegisterFormEtudiant from "/component/formulaires/RegisterFormEtudiant";
 import RegisterFormEtudiant from "../formulaires/RegisterFormEtudiant ";
-import { updateUser } from "@/actions/updateEtudiant";
+import UpdateEtudiantModal from "../formulaires/UpdateEtudiantModal"; // Assure-toi d'importer le composant
 
+// Permet de définir le type d'un étudiant
 type EtudiantType = {
-  id: string;
-  nom: string;
-  email: string;
-  image: string;
-  classes: string;
-  telephone: string;
-  adresse: string;
+  id: number;
+  utilisateurs: {
+    nom: string;
+    prenom: string;
+    email: string;
+    telephone: string;
+    adresse: string;
+    profil: string;
+  };
+  filieres: {
+    nom: string;
+  };
 };
 
-const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
-  // States
+const EtudiantTable = () => {
+  const [etudiants, setEtudiants] = useState<EtudiantType[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSur, setIsSur] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // État pour le modal de mise à jour
+  const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(null); // État pour l'étudiant sélectionné
+
+  const toggleIsSur = () => {
+    setIsSur(!isSur);
+  };
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [etudiantToUpdate, setEtudiantToUpdate] = useState<EtudiantType | null>(null);
@@ -28,22 +45,37 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
 
   const itemsPerPage = 6;
 
-  // Filtrage des étudiants
+  // Récupérer les étudiants depuis l'API
+  useEffect(() => {
+    const fetchEtudiants = async () => {
+      const res = await fetch("/api/recuperation");
+      if (!res.ok) {
+        console.log("Erreur API :", res.status);
+        return;
+      }
+      const data = await res.json();
+      console.log("Données récupérées :", data);
+      setEtudiants(data);
+    };
+
+    fetchEtudiants();
+  }, []);
+
+  // Filtrer les étudiants selon la recherche de l'utilisateur
   const filteredEtudiants = etudiants.filter(
     (etudiant) =>
-      etudiant.nom.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.email.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.classes.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.adresse.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.telephone.includes(search)
+      etudiant.utilisateurs.nom.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.email.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.telephone.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.adresse.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.telephone.includes(search)
   );
 
   // Pagination
   const totalPages = Math.ceil(filteredEtudiants.length / itemsPerPage);
-  const currentEtudiants = filteredEtudiants.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentEtudiants = filteredEtudiants.slice(indexOfFirstItem, indexOfLastItem);
 
   // Gérer la recherche
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,24 +83,36 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
     setCurrentPage(1);
   };
 
-  // Gérer les pages
-  const handlePrevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
-  const handleNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
-
-  // Gestion de la mise à jour d'un étudiant
-  const toggleModal = () => setIsOpen(!isOpen);
-  const handleEditClick = (etudiant: EtudiantType) => {
-    setEtudiantToUpdate(etudiant);
-    toggleModal();
+  const handleRegisterSubmit = async (formData: FormData) => {
+    await registerUser(formData);
   };
 
-  // Confirmation de suppression
-  const toggleIsSur = () => setIsSur(!isSur);
+  // Fonction pour gérer la mise à jour d'un étudiant
+  const handleUpdate = async (id: number, updatedData: any) => {
+    try
+    {
+    const response = await fetch(`/api/etudiant/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+    if (response.ok) {
+      // Rafraîchir la liste des étudiants après la mise à jour
+      const res = await fetch("/api/recuperation");
+      const data = await res.json();
+      setEtudiants(data);
+    }
+    else {
+      console.error("Échec de la mise à jour :", response.statusText);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+  }  };
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
       <div className="flex flex-col">
-        <h1 className="text-xl font-bold mb-4">Liste des Etudiants</h1>
+        <h1 className="text-xl font-bold mb-4">Liste des Étudiants</h1>
         <div className="flex items-center justify-between mb-4">
           <input
             type="text"
@@ -98,21 +142,33 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
               <tr key={etudiant.id} className="border-b-2 border-b-gray-400">
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    <img
-                      src={etudiant.image || "/icons/default-avatar.png"}
-                      alt="Avatar"
-                      className="w-8 h-8 rounded-full"
-                    />
+                    {etudiant.utilisateurs.profil ? (
+                      <img
+                        src={etudiant.utilisateurs.profil}
+                        alt=""
+                        className="w-8 h-8 rounded-full"
+                      />
+                    ) : (
+                      <img
+                        src="/icons/default-avatar.png"
+                        alt="Avatar"
+                        className="w-8 h-8 rounded-full"
+                      />
+                    )}
                     <div>
-                      <div>{etudiant.nom}</div>
-                      <div className="text-sm text-gray-500">{etudiant.email}</div>
+                      <div>
+                        {etudiant.utilisateurs.nom} {etudiant.utilisateurs.prenom}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {etudiant.utilisateurs.email}
+                      </div>
                     </div>
                   </div>
                 </td>
                 <td className="p-3">{etudiant.id}</td>
-                <td className="p-3">{etudiant.classes}</td>
-                <td className="p-3">{etudiant.telephone}</td>
-                <td className="p-3">{etudiant.adresse}</td>
+                <td className="p-3">{etudiant.filieres.nom}</td>
+                <td className="p-3">{etudiant.utilisateurs.telephone}</td>
+                <td className="p-3">{etudiant.utilisateurs.adresse}</td>
                 <td className="p-3">
                   <div className="flex gap-3">
                     <Image
@@ -120,7 +176,11 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
                       alt="update"
                       width={20}
                       height={20}
-                      onClick={() => handleEditClick(etudiant)}
+                      onClick={() => {
+                        setSelectedEtudiant(etudiant);
+                        setIsUpdateModalOpen(true);
+                      }}
+                      className="cursor-pointer"
                     />
                     <Image
                       src="/icons/eye.png"
@@ -163,8 +223,8 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
         </div>
       </div>
 
-      {/* Modal de mise à jour */}
-      {isOpen && etudiantToUpdate && (
+      {/* Overlay et formulaire modal pour l'ajout d'un étudiant */}
+      {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
           onClick={toggleModal}
@@ -174,18 +234,23 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <RegisterFormEtudiant
-              onSubmit={async (formData: FormData) => {
-                await updateUser(Number(etudiantToUpdate.id), formData);
-                toggleModal();
-              }}
-              title="Mettre à jour un étudiant"
-              initialValues={etudiantToUpdate}
+              onSubmit={handleRegisterSubmit}
+              title="Inscription d'un nouvel étudiant"
             />
           </div>
         </div>
       )}
 
-      {/* Confirmation de suppression */}
+      {/* Overlay et formulaire modal pour la mise à jour d'un étudiant */}
+      {isUpdateModalOpen && selectedEtudiant && (
+        <UpdateEtudiantModal
+          etudiant={selectedEtudiant}
+          onClose={() => setIsUpdateModalOpen(false)}
+          onUpdate={handleUpdate}
+        />
+      )}
+
+      {/* Overlay et modal de confirmation pour la suppression */}
       {isSur && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -199,7 +264,7 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
             <form>
               <div className="flex gap-2 text-center flex-col mt-6">
                 <div className="text-lg flex justify-center font-medium w-[300px]">
-                  êtes-vous sûr de vouloir effectuer cette opération ?
+                  Êtes-vous sûr de vouloir effectuer cette opération?
                 </div>
                 <div className="flex justify-between items-center">
                   <button className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white">

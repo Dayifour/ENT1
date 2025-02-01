@@ -1,6 +1,6 @@
 "use client";
-// j'ai ransformer mon formulaire en omposan
-import { useState , useEffect } from "react";
+// j'ai ransformer mon formulaire en composant pour pouvoir l'utiliser dans plusieurs pages
+import { useEffect, useState } from "react";
 import { registerUser } from "@/actions/signupetudiant";
 
 type EtudiantType = {

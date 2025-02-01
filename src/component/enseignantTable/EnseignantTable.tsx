@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import FormulaireAdmin from "../formulaires/FormulaireAdmin";
 
 type EnseingantType = {
   id: string;
