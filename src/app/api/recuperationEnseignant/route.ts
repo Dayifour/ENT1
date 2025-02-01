@@ -8,7 +8,7 @@ export async function GET() {
     const enseignants = await prisma.enseignant.findMany({
       include: {
         utilisateurs: {
-          select: {
+          select: { 
             nom: true,
             prenom: true,
             email: true,
