@@ -22,17 +22,16 @@ export async function POST(req: Request) {
 
     if (!user) {
       return new Response(
-        JSON.stringify({ error: "Utilisateur non trouvé" }),
+        JSON.stringify({ error: "Utilisateur existe deja" }),
         { status: 404 }
       );
     }
 
     // Vérification du mot de passe
     if (user.mot_de_passe !== password) {
-      return new Response(
-        JSON.stringify({ error: "Mot de passe incorrect" }),
-        { status: 401 }
-      );
+      return new Response(JSON.stringify({ error: "Mot de passe incorrect" }), {
+        status: 401,
+      });
     }
 
     // Connexion réussie

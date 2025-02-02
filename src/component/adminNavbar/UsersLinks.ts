@@ -1,42 +1,42 @@
 export const AdminLinks = [
   {
     image: "/icons/home.png",
-    path: "/etudiant",
+    path: "/admin",
     title: "Acceuil",
   },
   {
     image: "/icons/presentation.png",
-    path: "/etudiant/classes",
+    path: "/admin/classes",
     title: "Classes",
   },
   {
     image: "/icons/friends.png",
-    path: "/etudiant/enseignants",
+    path: "/admin/enseignants",
     title: "Enseignants",
   },
   {
     image: "/icons/graduation-cap.png",
-    path: "/etudiant/etudiants",
+    path: "/admin/etudiants",
     title: "Etudiant",
   },
   {
     image: "/icons/promotion.png",
-    path: "/etudiant/annonces",
+    path: "/admin/annonces",
     title: "Annonces",
   },
   {
     image: "/icons/grades.png",
-    path: "/etudiant/result",
+    path: "/admin/result",
     title: "Résulat",
   },
   {
     image: "/icons/email.png",
-    path: "/etudiant/messages",
+    path: "/admin/messages",
     title: "Messages",
   },
   {
     image: "/icons/assessment.png",
-    path: "/etudiant/sujets",
+    path: "/admin/sujets",
     title: "Sujets",
   },
 ];
@@ -73,7 +73,6 @@ export const EtudiantLinks = [
     title: "Sujets",
   },
 ];
-
 
 //TODO A Modifier selon le Besoin
 export const ProfesseurLinks = [
