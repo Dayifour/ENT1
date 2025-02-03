@@ -1,7 +1,12 @@
 import { registerTeacher } from "@/actions/signupprofesseur";
 import { useState } from "react";
 
-export default function RegisterTeacher() {
+type RegisterFormProps = {
+  onSubmit: (formData: FormData) => Promise<void>; //  LA fonction qui est  appelée lors de la soumission
+  title?: string; // Titre du formulaire a voir en bas
+};
+
+const RegisterFormEnseignant = ({ onSubmit, title = "Créer un Enseignant" }: RegisterFormProps) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -13,7 +18,7 @@ export default function RegisterTeacher() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const result = await registerTeacher(formData);
+       await registerTeacher(formData);
       setSuccess("Enseignant créé avec succès !");
     } catch (err) {
       setError("Erreur lors de la création de l'enseignant.");
@@ -21,7 +26,7 @@ export default function RegisterTeacher() {
   }
 
   return (
-    <div>
+    <div> 
     <form onSubmit={handleSubmit}>
       <br /><br /><br /><br />
       <h1>Créer un enseignant</h1>
@@ -83,3 +88,4 @@ export default function RegisterTeacher() {
     </div>
   );
 }
+export default RegisterFormEnseignant;

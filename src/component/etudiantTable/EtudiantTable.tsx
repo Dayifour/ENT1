@@ -1,22 +1,33 @@
 "use client";
-//TODO : Note Important //TODO J'ai changé tout les p-2 en p-3 pour que la table soit plus grande
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { registerUser } from "@/actions/signupetudiant";
+// import RegisterFormEtudiant from "/component/formulaires/RegisterFormEtudiant";
+import RegisterFormEtudiant from "../formulaires/RegisterFormEtudiant ";
+import UpdateEtudiantModal from "../formulaires/UpdateEtudiantModal"; // Assure-toi d'importer le composant
 
+// Permet de définir le type d'un étudiant
 type EtudiantType = {
-  id: string;
-  nom: string;
-  email: string;
-  image: string;
-  // modules: string;
-  classes: string;
-  telephone: string;
-  adresse: string;
+  id: number;
+  utilisateurs: {
+    nom: string;
+    prenom: string;
+    email: string;
+    telephone: string;
+    adresse: string;
+    profil: string;
+  };
+  filieres: {
+    nom: string;
+  };
 };
 
-const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
+const EtudiantTable = () => {
+  const [etudiants, setEtudiants] = useState<EtudiantType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // État pour le modal de mise à jour
+  const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(null); // État pour l'étudiant sélectionné
 
   const toggleIsSur = () => {
     setIsSur(!isSur);
@@ -30,25 +41,37 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  // Filtrer les etudiants selon la recherche
+  // Récupérer les étudiants depuis l'API
+  useEffect(() => {
+    const fetchEtudiants = async () => {
+      const res = await fetch("/api/recuperation");
+      if (!res.ok) {
+        console.log("Erreur API :", res.status);
+        return;
+      }
+      const data = await res.json();
+      console.log("Données récupérées :", data);
+      setEtudiants(data);
+    };
+
+    fetchEtudiants();
+  }, []);
+
+  // Filtrer les étudiants selon la recherche de l'utilisateur
   const filteredEtudiants = etudiants.filter(
     (etudiant) =>
-      etudiant.nom.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.email.toLowerCase().includes(search.toLowerCase()) ||
-      // etudiant.modules.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.classes.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.adresse.toLowerCase().includes(search.toLowerCase()) ||
-      etudiant.telephone.includes(search)
+      etudiant.utilisateurs.nom.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.email.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.telephone.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.adresse.toLowerCase().includes(search.toLowerCase()) ||
+      etudiant.utilisateurs.telephone.includes(search)
   );
 
   // Pagination
   const totalPages = Math.ceil(filteredEtudiants.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentEtudiants = filteredEtudiants.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentEtudiants = filteredEtudiants.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -63,10 +86,36 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
     setCurrentPage(1);
   };
 
+  const handleRegisterSubmit = async (formData: FormData) => {
+    await registerUser(formData);
+  };
+
+  // Fonction pour gérer la mise à jour d'un étudiant
+  const handleUpdate = async (id: number, updatedData: any) => {
+    try
+    {
+    const response = await fetch(`/api/etudiant/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+    if (response.ok) {
+      // Rafraîchir la liste des étudiants après la mise à jour
+      const res = await fetch("/api/recuperation");
+      const data = await res.json();
+      setEtudiants(data);
+    }
+    else {
+      console.error("Échec de la mise à jour :", response.statusText);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+  }  };
+
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
       <div className="flex flex-col">
-        <h1 className="text-xl font-bold mb-4">Liste des Etudiants</h1>
+        <h1 className="text-xl font-bold mb-4">Liste des Étudiants</h1>
         <div className="flex items-center justify-between mb-4">
           <input
             type="text"
@@ -79,12 +128,12 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
             +
           </button>
         </div>
+
         <table className="table-auto w-full">
           <thead>
             <tr>
               <th className="p-3">Infos</th>
               <th className="p-3">ID_Etudiant</th>
-              {/* <th className="p-3">Modules</th> */}
               <th className="p-3">Classes</th>
               <th className="p-3">Téléphone</th>
               <th className="p-3">Adresses</th>
@@ -96,9 +145,9 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
               <tr key={etudiant.id} className="border-b-2 border-b-gray-400">
                 <td className="p-3">
                   <div className="flex items-center gap-3">
-                    {etudiant.image ? (
+                    {etudiant.utilisateurs.profil ? (
                       <img
-                        src={etudiant.image}
+                        src={etudiant.utilisateurs.profil}
                         alt=""
                         className="w-8 h-8 rounded-full"
                       />
@@ -110,26 +159,31 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
                       />
                     )}
                     <div>
-                      <div>{etudiant.nom}</div>
+                      <div>
+                        {etudiant.utilisateurs.nom} {etudiant.utilisateurs.prenom}
+                      </div>
                       <div className="text-sm text-gray-500">
-                        {etudiant.email}
+                        {etudiant.utilisateurs.email}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="p-3">{etudiant.id}</td>
-                {/* <td className="p-3">{etudiant.modules}</td> */}
-                <td className="p-3">{etudiant.classes}</td>
-                <td className="p-3">{etudiant.telephone}</td>
-                <td className="p-3">{etudiant.adresse}</td>
+                <td className="p-3">{etudiant.filieres.nom}</td>
+                <td className="p-3">{etudiant.utilisateurs.telephone}</td>
+                <td className="p-3">{etudiant.utilisateurs.adresse}</td>
                 <td className="p-3">
                   <div className="flex gap-3">
                     <Image
                       src="/icons/pencil.png"
-                      alt="delete"
+                      alt="update"
                       width={20}
                       height={20}
-                      onClick={toggleIsSur}
+                      onClick={() => {
+                        setSelectedEtudiant(etudiant);
+                        setIsUpdateModalOpen(true);
+                      }}
+                      className="cursor-pointer"
                     />
                     <Image
                       src="/icons/eye.png"
@@ -170,7 +224,8 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
           </button>
         </div>
       </div>
-      {/* Overlay et formulaire modal pour Etudiant */}
+
+      {/* Overlay et formulaire modal pour l'ajout d'un étudiant */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -180,164 +235,24 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
             className="bg-white rounded-lg p-3 shadow-lg lg:px-8 lg:py-4 relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-2xl font-bold text-center">
-              Créer un nouveau Etudiant
-            </h2>
-            <form>
-              <div className="flex flex-col gap-1 mt-6">
-                <div className="text-lg font-medium">
-                  Informations d’hauthentification
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-black rounded-full"></div>
-                  <div className="w-full h-[2px] bg-black"></div>
-                </div>
-              </div>
-              <div className="flex gap-4 mt-4">
-                <div className="">
-                  <label className="block text-gray-700 mb-2">
-                    Nom d'utilisateur
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Entrez un nom d'utilisateur"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    placeholder="etudiant@gmail.com"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">
-                    Mot de passe
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Entrez un mot de passe"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 mt-6">
-                <div className="text-lg font-medium">
-                  Informations d’hauthentification
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-black rounded-full"></div>
-                  <div className="w-full h-[2px] bg-black"></div>
-                </div>
-              </div>
-              <div className="flex gap-4 mt-4">
-                <div className="">
-                  <label className="block text-gray-700 mb-2">Nom</label>
-                  <input
-                    type="text"
-                    placeholder="Entrez un nom"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">Prenom</label>
-                  <input
-                    type="text"
-                    placeholder="Entrez un prénom"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">
-                    N° de téléphone
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="Entrez un numéro de téléphone"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-              </div>
-              <div className="flex gap-4 mt-4">
-                <div className="">
-                  <label className="block text-gray-700 mb-2">Adresse</label>
-                  <input
-                    type="text"
-                    placeholder="Entrez une adresse"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">
-                    Groupe Sanguin
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="AB+"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-                <div className="">
-                  <label className="block text-gray-700 mb-2">
-                    Date de naissance
-                  </label>
-                  <input
-                    type="date"
-                    placeholder="Choisir une date de naissance"
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-around items-center w-full mt-4">
-                <div className="">
-                  <label className="block text-gray-700 mb-2" htmlFor="sexe">
-                    Sexe
-                  </label>
-                  <select
-                    className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                    id="sexe"
-                  >
-                    <option value="M">Masculin</option>
-                    <option value="F">Féminin</option>
-                  </select>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Image src="/icons/add.png" alt="" width={30} height={30} />
-                  <div>
-                    <label className="block text-gray-700 mb-2" htmlFor="image">
-                      Ajouter une photo
-                    </label>
-                    <input
-                      type="file"
-                      name="image"
-                      className="hidden"
-                      id="image"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex justify-between mt-5">
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
-                >
-                  Soumettre
-                </button>
-                <button
-                  type="button"
-                  onClick={toggleModal}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500"
-                >
-                  Fermer
-                </button>
-              </div>
-            </form>
+            <RegisterFormEtudiant
+              onSubmit={handleRegisterSubmit}
+              title="Inscription d'un nouvel étudiant"
+            />
           </div>
         </div>
       )}
+
+      {/* Overlay et formulaire modal pour la mise à jour d'un étudiant */}
+      {isUpdateModalOpen && selectedEtudiant && (
+        <UpdateEtudiantModal
+          etudiant={selectedEtudiant}
+          onClose={() => setIsUpdateModalOpen(false)}
+          onUpdate={handleUpdate}
+        />
+      )}
+
+      {/* Overlay et modal de confirmation pour la suppression */}
       {isSur && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -353,7 +268,7 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
             <form>
               <div className="flex gap-2 text-center flex-col mt-6">
                 <div className="text-lg flex justify-center font-medium w-[300px]">
-                  êtes-vous sûr de vouloir effectuer cette opération?
+                  Êtes-vous sûr de vouloir effectuer cette opération?
                 </div>
                 <div className="flex justify-between items-center">
                   <button className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white">
@@ -364,7 +279,7 @@ const EtudiantTable = ({ etudiants }: { etudiants: EtudiantType[] }) => {
                   </button>
                 </div>
               </div>
-            </form>
+            </form> 
           </div>
         </div>
       )}
