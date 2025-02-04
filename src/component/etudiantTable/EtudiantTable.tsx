@@ -110,7 +110,7 @@ const EtudiantTable = () => {
     }
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
-  }  };
+  }  }; 
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">

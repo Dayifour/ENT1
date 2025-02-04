@@ -174,7 +174,7 @@ const EnseignantTable = () => {
                       </div>
                     </div>
                   </div>
-                </td>
+                </td> 
                 <td className="p-2">{enseignant.id}</td>
                 <td className="p-2">
                   {enseignant.cours.map((cours) => (

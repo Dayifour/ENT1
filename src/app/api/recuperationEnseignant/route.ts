@@ -9,7 +9,7 @@ export async function GET() {
       //la puissance de prisma est sans limite on peut faire des jointures pour recuperer les informations des tables liées
       include: {
         utilisateurs: {
-          select: {
+          select: { 
             nom: true,
             prenom: true,
             email: true,
