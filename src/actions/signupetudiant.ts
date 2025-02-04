@@ -27,7 +27,7 @@ export async function registerUser(formData: FormData) {
         prenom,
         email,
         mot_de_passe,
-        id_role,
+        id_role: 2,
         sexe,
         telephone,
         adresse,

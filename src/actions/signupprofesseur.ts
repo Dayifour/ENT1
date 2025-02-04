@@ -27,7 +27,7 @@ export async function registerTeacher(formData: FormData) {
         prenom,
         email,
         mot_de_passe,
-        id_role,
+        id_role: 3,
         sexe,
         telephone,
         adresse,
