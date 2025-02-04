@@ -86,7 +86,14 @@ const RegisterFormEtudiant = ({ onSubmit, title = "Créer un étudiant" }: Regis
       </div>
 
       <div className="flex gap-4 mt-4">
-
+      <div>
+        <label className="block text-gray-700 mb-2">Role :</label>
+        <select name="id_role" className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+          <option value="1">Membre</option>
+          <option value="2">Syndycat</option>
+          <option value="3">autre</option>
+        </select>
+      </div>
       <div>
         <label className="block text-gray-700 mb-2">Filière :</label>
         <select name="id_filiere" className="w-[260px] px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
