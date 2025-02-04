@@ -40,8 +40,6 @@ const EtudiantTable = () => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [etudiantToUpdate, setEtudiantToUpdate] = useState<EtudiantType | null>(null);
-  const [isSur, setIsSur] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   const itemsPerPage = 6;
 
