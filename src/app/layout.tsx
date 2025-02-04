@@ -36,7 +36,7 @@ export default function RootLayout({
           </div>
           <div className="w-full h-screen overflow-scroll flex-col min-h-screen overflow-x-hidden">
             <Header />
-            <div className="flex">{children}</div>
+            <div className="flex z-20">{children}</div>
           </div>
         </div>
       </body>

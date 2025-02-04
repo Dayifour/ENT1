@@ -15,7 +15,7 @@ export default function Header() {
   // }, []);
   return (
     <>
-      <header className="my-2 rounded-sm flex justify-between items-center text-center fixed">
+      <header className="my-2 rounded-sm flex justify-between items-center text-center fixed z-10">
         <div className="relative  h-8 search partie1">
           {/* <div className="date-time">
             {dateTime.toLocaleString("fr-FR", {

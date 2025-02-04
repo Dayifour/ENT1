@@ -3,16 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   --userCard: #c9e6f1;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --chart-1: 263 70% 50%;
+  --chart-2: 350 89% 60%;
 }
 /* login-style */
 .login input {
@@ -91,4 +84,9 @@ header {
 }
 .search {
   margin-left: 1%;
+}
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
 }

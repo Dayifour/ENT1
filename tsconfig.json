@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.ts",
-    "src/component/annonceCard/Annonce.tsx"
-, "src/component/semestre/TabSemestre.jsx"  ],
+    "src/component/annonceCard/Annonce.tsx",
+    "src/component/semestre/TabSemestre.jsx"
+  ],
   "exclude": ["node_modules"]
 }
