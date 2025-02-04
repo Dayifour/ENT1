@@ -13,9 +13,21 @@ const userData = {
 };
 
 const annonces = [
-  { id: 1, titre: "Titre de l'annonce", desc: "Le lorem ipsum est, en imprimerie, une suite de mots." },
-  { id: 2, titre: "Titre de l'annonce", desc: "Le lorem ipsum est, en imprimerie, une suite de mots." },
-  { id: 3, titre: "Titre de l'annonce", desc: "Le lorem ipsum est, en imprimerie, une suite de mots." },
+  {
+    id: 1,
+    titre: "Titre de l'annonce",
+    desc: "Le lorem ipsum est, en imprimerie, une suite de mots.",
+  },
+  {
+    id: 2,
+    titre: "Titre de l'annonce",
+    desc: "Le lorem ipsum est, en imprimerie, une suite de mots.",
+  },
+  {
+    id: 3,
+    titre: "Titre de l'annonce",
+    desc: "Le lorem ipsum est, en imprimerie, une suite de mots.",
+  },
 ];
 
 export default function HomePage() {
@@ -71,10 +83,18 @@ export default function HomePage() {
           <div className="bg-white shadow-md rounded-lg p-5">
             <h3 className="font-bold text-lg">Raccourci</h3>
             <div className="grid grid-cols-2 gap-2 mt-3">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">les classes du prof</button>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">les classes du prof</button>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">les classes du prof</button>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">les classes du prof</button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                les classes du prof
+              </button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                les classes du prof
+              </button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                les classes du prof
+              </button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                les classes du prof
+              </button>
             </div>
           </div>
           <div className="bg-white shadow-md rounded-lg p-5">

@@ -1,8 +1,6 @@
 "use client";
-import { useState } from "react";
-import React from "react";
-import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 import Semesters from "@/component/semestre/TabSemestre";
+import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 
 export default function page() {
   return (
@@ -16,13 +14,13 @@ export default function page() {
           />
         </div>
         <div className="">
-        <SmallIconCard
-          photoName="/icons/Bookmark.png"
-          stats="2"
-          name="Nombre d'abscences"
-        />
+          <SmallIconCard
+            photoName="/icons/Bookmark.png"
+            stats="2"
+            name="Nombre d'abscences"
+          />
         </div>
-        
+
         <p className="text-2xl font-bold text-gray-800 mt-40">Imprimer</p>
       </div>
 
