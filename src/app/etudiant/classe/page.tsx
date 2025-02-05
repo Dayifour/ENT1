@@ -3,9 +3,6 @@ import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 // import UserCard from "@/component/userCard/UserCard";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 import Calendar from "@/component/calendar/Calendar";
-import Emploie from "@/component/emploieTemps/Emploie";
-import TablauD from "@/component/tableau/TableauD";
-import React from "react";
 import TableauD from "@/component/tableau/TableauD";
 
 const Classepage = () => {
@@ -32,7 +29,7 @@ const Classepage = () => {
         />
       </div>
 
-      <div justify-center items-center>
+      <div>
         <div className="container mx-auto p-4">
           <h1 className="text-2xl font-bold mb-4">Ap(Analyse Programmeur)</h1>
           <TableauD />
