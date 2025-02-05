@@ -1,10 +1,8 @@
-
-"use client";
-
+'use client'
+import { registerUser } from "@/actions/signupetudiant";
 import { useState } from "react";
-import { registerTeacher } from "@/actions/signupprofesseur";
 
-export default function RegisterTeacher() {
+export default function Register() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -16,17 +14,17 @@ export default function RegisterTeacher() {
     const formData = new FormData(event.currentTarget);
 
     try {
-      const result = await registerTeacher(formData);
-      setSuccess("Enseignant créé avec succès !");
+      const result = await registerUser(formData);
+      setSuccess("Étudiant créé avec succès !");
     } catch (err) {
-      setError("Erreur lors de la création de l'enseignant.");
+      setError("Erreur lors de la création de l'étudiant.");
     }
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <br /><br /><br /><br />
-      <h1>Créer un enseignant</h1>
+      <h1>Créer un étudiant</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
       <div>
@@ -69,16 +67,12 @@ export default function RegisterTeacher() {
         <input type="text" name="profil" required />
       </div>
       <div>
-        <label>Spécialité :</label>
-        <input type="text" name="specialite" required />
+        <label>Date de naissance :</label>
+        <input type="date" name="date_naissance" required />
       </div>
       <div>
-        <label>Cours :</label>
-        <input
-          type="text"
-          name="cours"
-          placeholder="Entrez les cours séparés par des virgules"
-        />
+        <label>ID Filière :</label>
+        <input type="number" name="id_filiere" required />
       </div>
       <button type="submit">Créer</button>
     </form>

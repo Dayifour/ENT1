@@ -1,5 +1,9 @@
+
+import EtudiantTable from "@/component/etudiantTable/EtudiantTable";
+
+
 const EtudiantPage = () => {
-  return <div>EtudiantPage</div>;
+  return <EtudiantTable  />; // L'interface de la page etudiant avec la table des etudiants cest a dire la liste des etudiants
 };
 
 export default EtudiantPage;
