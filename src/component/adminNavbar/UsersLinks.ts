@@ -67,11 +67,6 @@ export const EtudiantLinks = [
     path: "/etudiant/messages",
     title: "Messages",
   },
-  {
-    image: "/icons/assessment.png",
-    path: "/etudiant/sujets",
-    title: "Sujets",
-  },
 ];
 
 //TODO A Modifier selon le Besoin
