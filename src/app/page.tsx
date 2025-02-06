@@ -3,8 +3,8 @@ import { UserContext } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
-const user = useContext(UserContext);
 const page = () => {
+  const user = useContext(UserContext);
   const router = useRouter();
 
   useEffect(() => {
