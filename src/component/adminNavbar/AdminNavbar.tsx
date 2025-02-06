@@ -35,10 +35,11 @@ const AdminNavbar = () => {
             <Image src="/icons/user.png" width={20} height={20} alt="" />
             <p>Profil</p>
           </li>
-          <li className="mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
-            <Image src="/icons/settings.png" width={20} height={20} alt="" />
-            <p>Paramètre</p>
-          </li>
+          <Links
+            path="/admin/parametre"
+            image="/icons/settings.png"
+            title="parametre"
+          />
           <li className="mx-6 hover:bg-green-100 rounded-lg w-4/5 gap-2 items-center py-3 pl-1 flex">
             <Image src="/icons/out.png" width={20} height={20} alt="" />
             <p>Déconnexion</p>

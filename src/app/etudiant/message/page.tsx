@@ -4,8 +4,6 @@ import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 import Calendar from "@/component/calendar/Calendar";
 
-import React from "react";
-
 const ClasseMessage = () => {
   return (
     <div>
