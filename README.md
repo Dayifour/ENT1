@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 ENT - Environnement Numérique de Travail
 
-## Getting Started
+Bienvenue sur **ENT**, une plateforme e-learning interactive conçue pour améliorer l'expérience d'apprentissage en ligne. Ce projet permet aux enseignants de gérer leurs cours et aux étudiants d'accéder facilement aux ressources pédagogiques.
 
-First, run the development server:
+## 🚀 Fonctionnalités principales
+
+- 🔐 **Authentification sécurisée** (inscription, connexion, gestion des rôles)
+- 📚 **Gestion des cours** (création, modification, suppression)
+- 🎥 **Affichage et suivi des vidéos de formation**
+- 📝 **Système de quiz interactifs**
+- 📊 **Suivi des progrès des étudiants**
+- 💬 **Forum de discussion** pour l'échange entre apprenants et enseignants
+
+## 🛠️ Technologies utilisées
+
+- **Framework** : Next.js
+- **Frontend** : React, Tailwind CSS
+- **Backend** : Next.js API Routes, Prisma
+- **Base de données** : MySQL
+- **Authentification** : NextAuth.js
+
+## 📥 Installation
+
+### 📌 Prérequis
+
+- **Node.js 18+**
+- **Base de données MySQL ou MongoDB configurée**
+- **Prisma installé**
+
+### 🔧 Étapes d'installation
+
+1. **Cloner le projet**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ git clone https://github.com/ton-utilisateur/ENT.git
+ cd ENT
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Installer les dépendances**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+ npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Configurer l'environnement**
+   Créer un fichier `.env.local` à la racine du projet et ajouter :
 
-## Learn More
+```env
+DATABASE_URL="votre_url_de_base_de_donnees"
+NEXTAUTH_SECRET="votre_secret"
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Exécuter les migrations de base de données**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+ npx prisma migrate dev --name init
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **Lancer l'application**
 
-## Deploy on Vercel
+```bash
+ npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📅 Roadmap
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Finalisation du système d'authentification
+- [ ] Ajout de la gestion avancée des cours
+- [ ] Intégration d'un tableau de bord administrateur
+- [ ] Amélioration de l'UX/UI
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues !
+
+1. Forker le repo
+2. Créer une branche (`git checkout -b feature-xyz`)
+3. Commiter vos modifications (`git commit -m "Ajout d'une nouvelle fonctionnalité"`)
+4. Pousser la branche (`git push origin feature-xyz`)
+5. Ouvrir une Pull Request
+
+## 📜 Licence
+
+Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus d'informations.
+
+---
+
+✨ _Ce projet est activement développé, restez à l'affût des mises à jour !_

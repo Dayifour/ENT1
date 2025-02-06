@@ -1,18 +1,19 @@
 "use client";
+import { UserContext } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
-const userRole: string = "admin";
 const page = () => {
+  const user = useContext(UserContext);
   const router = useRouter();
 
   useEffect(() => {
     // Vérifie si le rôle est admin
-    if (userRole === "admin") {
+    if (user.userRole === "admin") {
       router.push("/admin"); // Redirige vers la page admin
-    } else if (userRole === "proffesseur") {
+    } else if (user.userRole === "proffesseur") {
       router.push("/professeur");
-    } else if (userRole === "etudiant") {
+    } else if (user.userRole === "etudiant") {
       router.push("/etudiant");
     } else {
       router.push("/login");
