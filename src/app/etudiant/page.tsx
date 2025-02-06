@@ -1,6 +1,6 @@
 "use client";
 import Calendrier from "@/component/calendrier/Calendrier";
-import Emploie from "@/component/emploieTemps/Emploie";
+import EmploieStudent from "@/component/emploieStudent/EmploieStudent";
 import MiniSmallIconCard from "@/component/miniSmallIconCard/MiniSmallIconCard";
 import UserCard from "@/component/userCard/UserCard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -16,11 +16,13 @@ export default function Home() {
     tel: "73-04-03-09",
   };
   return (
-    <div className="w-full mt-16 gap-5 flex justify-center items-start">
-      <div className="flex flex-col">
-        <div className="w-full flex gap-5 h-full">
-          <UserCard item={userData} />
-          <div className="flex flex-col gap-5 h-full">
+    <div className="w-full mt-16 gap-2 flex justify-center items-start">
+      <div className="flex flex-col gap-2 w-[900px] justify-center items-start">
+        <div className="w-full flex gap-16 h-full">
+          <div className="w-[600px]">
+            <UserCard item={userData} />
+          </div>
+          <div className="flex flex-col gap-2 h-full">
             <div className="flex flex-col gap-2 align-top">
               <MiniSmallIconCard
                 photoName="/icons/Bookmark.png"
@@ -41,10 +43,10 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <Emploie />
+          <EmploieStudent />
         </div>
       </div>
-      <div className="min-h-screen w-[350px] bg-gray-50 flexjustify-center">
+      <div className="min-h-screen w-[300px] bg-gray-50 flexjustify-center">
         <Calendrier />
       </div>
     </div>
