@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "@mui/material": "^6.4.3",
     "@prisma/client": "^6.2.1",
     "@shadcn/ui": "^0.0.4",
     "@types/bcrypt": "^5.0.2",

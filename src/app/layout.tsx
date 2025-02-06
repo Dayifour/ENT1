@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         {/* Container principal */}
         <div className="flex flex-row">
-          <div className="w-[300px]">
+          <div className="w-[250px]">
             <Sidebar />
           </div>
           <div className="w-full h-screen overflow-scroll flex-col min-h-screen overflow-x-hidden">
