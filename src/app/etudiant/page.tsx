@@ -3,18 +3,17 @@ import Calendrier from "@/component/calendrier/Calendrier";
 import EmploieStudent from "@/component/emploieStudent/EmploieStudent";
 import MiniSmallIconCard from "@/component/miniSmallIconCard/MiniSmallIconCard";
 import UserCard from "@/component/userCard/UserCard";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
-export default function Home() {
-  const userData = {
-    image: "/img/man4.jpg",
-    nom: "Siby Souleymane",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus ad, exercitationem consectetur a beatae nobis culpa tenetur incidunt",
-    email: "Soule1716@gmail.com",
-    adresse: "Missabougou",
-    date: "Janvier 2025",
-    tel: "73-04-03-09",
-  };
+const userData = {
+  image: "/img/man4.jpg",
+  nom: "Siby Souleymane",
+  desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus ad, exercitationem consectetur a beatae nobis culpa tenetur incidunt",
+  email: "Soule1716@gmail.com",
+  adresse: "Missabougou",
+  date: "Janvier 2025",
+  tel: "73-04-03-09",
+};
+const Home = () => {
   return (
     <div className="w-full mt-16 gap-2 flex justify-center items-start">
       <div className="flex flex-col gap-2 w-[900px] justify-center items-start">
@@ -51,4 +50,5 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+export default Home;
