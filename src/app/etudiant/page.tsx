@@ -1,7 +1,7 @@
 "use client";
-import Calendar from "@/component/calendar/Calendar";
+import Calendrier from "@/component/calendrier/Calendrier";
 import Emploie from "@/component/emploieTemps/Emploie";
-import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
+import MiniSmallIconCard from "@/component/miniSmallIconCard/MiniSmallIconCard";
 import UserCard from "@/component/userCard/UserCard";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -16,30 +16,23 @@ export default function Home() {
     tel: "73-04-03-09",
   };
   return (
-    <div className="w-full mt-16 gap-10 flex flex-col justify-center items-center">
-      <div className="flex gap-5 min-h-[clac(100vh-100px)] items-start">
-        <div className="flex flex-col gap-5 w-[600px] h-full">
+    <div className="w-full mt-16 gap-5 flex justify-center items-start">
+      <div className="flex flex-col">
+        <div className="w-full flex gap-5 h-full">
           <UserCard item={userData} />
-          <div>
-            <Emploie />
-          </div>
-        </div>
-        <div className="flex flex-col gap-5 h-full">
-          <div className="flex flex-col gap-5 h-[250px]">
-            <div className="align-top space-y-4">
-              <SmallIconCard
+          <div className="flex flex-col gap-5 h-full">
+            <div className="flex flex-col gap-2 align-top">
+              <MiniSmallIconCard
                 photoName="/icons/Bookmark.png"
                 stats="12"
                 name="Module"
               />
-              <SmallIconCard
+              <MiniSmallIconCard
                 photoName="/icons/Training.png"
                 stats="AP"
                 name="Classe"
               />
-            </div>
-            <div className="flex h-full gap-5">
-              <SmallIconCard
+              <MiniSmallIconCard
                 photoName="/icons/Close.png"
                 stats="2"
                 name="Module non valide"
@@ -47,9 +40,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <Calendar />
+        <div>
+          <Emploie />
         </div>
+      </div>
+      <div className="min-h-screen w-[350px] bg-gray-50 flexjustify-center">
+        <Calendrier />
       </div>
     </div>
   );
