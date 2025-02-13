@@ -1,10 +1,12 @@
 "use client";
+import { useState } from 'react';
+import React from "react";
 import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
 // import UserCard from "@/component/userCard/UserCard";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 import Calendar from "@/component/calendar/Calendar";
+import Message from '@/component/etudiantMessage/Message';
 
-import React from "react";
 
 const ClasseMessage = () => {
   return (
@@ -29,6 +31,7 @@ const ClasseMessage = () => {
           name="Module non valide"
         />
       </div>
+      <Message/>
     </div>
   );
 };
