@@ -27,14 +27,8 @@ const EtudiantTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // État pour le modal de mise à jour
-<<<<<<< HEAD:src/component/etudiantTable/EtudiantTable.tsx
   const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(null); // État pour l'étudiant sélectionné
   const [etudiantASupprimer, setEtudiantASupprimer] = useState<number | null>(null); // Etatu pour supprimer l'étudiant
-=======
-  const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(
-    null
-  ); // État pour l'étudiant sélectionné
->>>>>>> 521cdf1cad956e9ef4d4e0044bd7e093104fb32d:src/components/etudiantTable/EtudiantTable.tsx
 
   const toggleIsSur = () => {
     setIsSur(!isSur);

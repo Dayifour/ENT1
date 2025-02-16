@@ -32,6 +32,8 @@ const EnseignantTable = () => {
   const [enseignants, setEnseignants] = useState<EnseignantType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
+  const [enseignantASupprimer, setEnseignantASupprimer] = useState<number | null>(null); // Etat pour supprimer l'étudiant
+
 
   const toggleIsSur = () => {
     setIsSur(!isSur);
@@ -118,6 +120,38 @@ const EnseignantTable = () => {
     fetchEnseignants();
   }, []);
 
+
+   // Fonction pour supprimer un étudiant
+
+
+   const confirmerSuppression = (id: number) => {
+    setEnseignantASupprimer(id);
+    setIsSur(true);
+  };
+  
+  const handleDelete = async () => {
+    if (enseignantASupprimer) {
+      try {
+        const response = await fetch(`/api/etudiant/${enseignantASupprimer}`, {
+          method: "DELETE",
+        });
+  
+        if (response.ok) {
+          // Rafraîchir la liste des étudiants après suppression
+          const res = await fetch("/api/recuperation");
+          const data = await res.json();
+          setEnseignants(data);
+        } else {
+          console.error("Échec de la suppression :", response.statusText);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la suppression :", error);
+      } finally {
+        setIsSur(false);
+        setEnseignantASupprimer(null);
+      }
+    }
+  };
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
       <div className="flex flex-col">
@@ -212,7 +246,8 @@ const EnseignantTable = () => {
                       alt="delete"
                       width={20}
                       height={20}
-                      onClick={toggleIsSur}
+                      onClick={() => confirmerSuppression(enseignant.id)}
+                      className="cursor-pointer"
                     />
                   </div>
                 </td>
@@ -258,37 +293,46 @@ const EnseignantTable = () => {
           </div>
         </div>
       )}
-      {/* Ouvre le formualire d'inscription du prof */}
+      
+      {/* Modal de confirmation pour la suppression */}
+   
       {isSur && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={toggleIsSur}
-        >
-          <div
-            className="bg-white rounded-lg p-2 shadow-lg lg:px-8 lg:py-4 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-3xl font-bold text-center">
-              Supprimer un Enseignant
-            </h2>
-            <form>
-              <div className="flex gap-2 text-center flex-col mt-6">
-                <div className="text-lg flex justify-center font-medium w-[300px]">
-                  êtes-vous sûr de vouloir effectuer cette opération?
-                </div>
-                <div className="flex justify-between items-center">
-                  <button className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white">
-                    OUI
-                  </button>
-                  <button className="text-xl bg-red-500 rounded-xl px-10 py-2 text-white">
-                    NON
-                  </button>
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+              onClick={() => setIsSur(false)}
+            >
+              <div
+                className="bg-white rounded-lg p-4 shadow-lg lg:px-8 lg:py-4 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-3xl font-bold text-center">
+                  Supprimer un Étudiant
+                </h2>
+                <div className="flex gap-2 text-center flex-col mt-6">
+                  <div className="text-lg flex justify-center font-medium w-[300px]">
+                    Êtes-vous sûr de vouloir effectuer cette opération ?
+                  </div>
+                  <div className="flex justify-between items-center mt-4">
+                    <button
+                      className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white"
+                      onClick={handleDelete}
+                    >
+                      OUI
+                    </button>
+                    <button
+                      className="text-xl bg-red-500 rounded-xl px-10 py-2 text-white"
+                      onClick={() => {
+                        setIsSur(false);
+                        setEnseignantASupprimer(null);
+                      }}
+                    >
+                      NON
+                    </button>
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+            </div>
+          )}
     </div>
   );
 };
