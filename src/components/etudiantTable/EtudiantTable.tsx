@@ -27,9 +27,8 @@ const EtudiantTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSur, setIsSur] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // État pour le modal de mise à jour
-  const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(
-    null
-  ); // État pour l'étudiant sélectionné
+  const [selectedEtudiant, setSelectedEtudiant] = useState<EtudiantType | null>(null); // État pour l'étudiant sélectionné
+  const [etudiantASupprimer, setEtudiantASupprimer] = useState<number | null>(null); // Etatu pour supprimer l'étudiant
 
   const toggleIsSur = () => {
     setIsSur(!isSur);
@@ -101,6 +100,7 @@ const EtudiantTable = () => {
     await registerUser(formData);
   };
 
+
   // Fonction pour gérer la mise à jour d'un étudiant
   const handleUpdate = async (id: number, updatedData: any) => {
     try
@@ -125,24 +125,37 @@ const EtudiantTable = () => {
 
 
   // Fonction pour supprimer un étudiant
-const handleDelete = async (id: number) => {
-  try {
-    const response = await fetch(`/api/etudiant/${id}`, {
-      method: "DELETE",
-    });
 
-    if (response.ok) {
-      // Rafraîchir la liste des étudiants après suppression
-      const res = await fetch("/api/recuperation");
-      const data = await res.json();
-      setEtudiants(data);
-    } else {
-      console.error("Échec de la suppression :", response.statusText);
+
+  const confirmerSuppression = (id: number) => {
+    setEtudiantASupprimer(id);
+    setIsSur(true);
+  };
+  
+  const handleDelete = async () => {
+    if (etudiantASupprimer) {
+      try {
+        const response = await fetch(`/api/etudiant/${etudiantASupprimer}`, {
+          method: "DELETE",
+        });
+  
+        if (response.ok) {
+          // Rafraîchir la liste des étudiants après suppression
+          const res = await fetch("/api/recuperation");
+          const data = await res.json();
+          setEtudiants(data);
+        } else {
+          console.error("Échec de la suppression :", response.statusText);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la suppression :", error);
+      } finally {
+        setIsSur(false);
+        setEtudiantASupprimer(null);
+      }
     }
-  } catch (error) {
-    console.error("Erreur lors de la suppression :", error);
-  }
-};
+  };
+  
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
@@ -229,9 +242,10 @@ const handleDelete = async (id: number) => {
                       alt="delete"
                       width={20}
                       height={20}
-                      onClick={() => handleDelete(etudiant.id)}
+                      onClick={() => confirmerSuppression(etudiant.id)}
                       className="cursor-pointer"
                     />
+
                     </div>
                 </td>
               </tr>
@@ -287,36 +301,45 @@ const handleDelete = async (id: number) => {
       )}
 
       {/* Modal de confirmation pour la suppression */}
-      {isSur && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={toggleIsSur}
-        >
-          <div
-            className="bg-white rounded-lg p-2 shadow-lg lg:px-8 lg:py-4 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-3xl font-bold text-center">
-              Supprimer un Étudiant
-            </h2>
-            <form>
-              <div className="flex gap-2 text-center flex-col mt-6">
-                <div className="text-lg flex justify-center font-medium w-[300px]">
-                  Êtes-vous sûr de vouloir effectuer cette opération ?
-                </div>
-                <div className="flex justify-between items-center">
-                  <button className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white">
-                    OUI
-                  </button>
-                  <button className="text-xl bg-red-500 rounded-xl px-10 py-2 text-white">
-                    NON
-                  </button>
+   
+          {isSur && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+              onClick={() => setIsSur(false)}
+            >
+              <div
+                className="bg-white rounded-lg p-4 shadow-lg lg:px-8 lg:py-4 relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-3xl font-bold text-center">
+                  Supprimer un Étudiant
+                </h2>
+                <div className="flex gap-2 text-center flex-col mt-6">
+                  <div className="text-lg flex justify-center font-medium w-[300px]">
+                    Êtes-vous sûr de vouloir effectuer cette opération ?
+                  </div>
+                  <div className="flex justify-between items-center mt-4">
+                    <button
+                      className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white"
+                      onClick={handleDelete}
+                    >
+                      OUI
+                    </button>
+                    <button
+                      className="text-xl bg-red-500 rounded-xl px-10 py-2 text-white"
+                      onClick={() => {
+                        setIsSur(false);
+                        setEtudiantASupprimer(null);
+                      }}
+                    >
+                      NON
+                    </button>
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+            </div>
+          )}
+
     </div>
   );
 };
