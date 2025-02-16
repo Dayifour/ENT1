@@ -1,4 +1,5 @@
 "use client";
+import "./style.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,15 +12,15 @@ export default function Page() {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
-  
+
     // Renommez le champ pour correspondre à ce que le backend attend
     const payload = {
       email: data.email,
       password: data.mot_de_passe, // Correspond au champ attendu côté serveur
     };
-  
+
     console.log("Payload envoyé :", payload); // Debugging
-  
+
     const login = await fetch("/api/connexion", {
       method: "POST",
       headers: {
@@ -27,7 +28,7 @@ export default function Page() {
       },
       body: JSON.stringify(payload), // Envoyez le bon format
     });
-  
+
     if (login.ok) {
       alert("Connexion réussie");
       route.push("./");
@@ -35,7 +36,7 @@ export default function Page() {
       alert("Erreur de connexion");
     }
   };
-  
+
   const [isFocused1, setIsFocused1] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   return (
@@ -89,7 +90,10 @@ export default function Page() {
               <a href="" className="text-right text-cyan-500">
                 Mot de passe oublier
               </a>
-              <button className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8 phone " type="submit">
+              <button
+                className="bg-cyan-500 text-white py-2 px-4 rounded-md mt-8 phone "
+                type="submit"
+              >
                 Envoyer
               </button>
               <span className="flex justify-between mt-1 phone login-icon">
