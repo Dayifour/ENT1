@@ -94,23 +94,45 @@ const EtudiantTable = () => {
   const handleUpdate = async (id: number, updatedData: any) => {
     try
     {
+      const response = await fetch(`/api/etudiant/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (response.ok) {
+        // Rafraîchir la liste des étudiants après la mise à jour
+        const res = await fetch("/api/recuperation");
+        const data = await res.json();
+        setEtudiants(data);
+      } else {
+        console.error("Échec de la mise à jour :", response.statusText);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
+    }
+  };
+
+
+  // Fonction pour supprimer un étudiant
+const handleDelete = async (id: number) => {
+  try {
     const response = await fetch(`/api/etudiant/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedData),
+      method: "DELETE",
     });
+
     if (response.ok) {
-      // Rafraîchir la liste des étudiants après la mise à jour
+      // Rafraîchir la liste des étudiants après suppression
       const res = await fetch("/api/recuperation");
       const data = await res.json();
       setEtudiants(data);
-    }
-    else {
-      console.error("Échec de la mise à jour :", response.statusText);
+    } else {
+      console.error("Échec de la suppression :", response.statusText);
     }
   } catch (error) {
-    console.error("Erreur lors de la mise à jour :", error);
-  }  }; 
+    console.error("Erreur lors de la suppression :", error);
+  }
+};
 
   return (
     <div className="w-full mt-16 gap-10 flex flex-col justify-start items-center">
@@ -148,7 +170,7 @@ const EtudiantTable = () => {
                     {etudiant.utilisateurs.profil ? (
                       <img
                         src={etudiant.utilisateurs.profil}
-                        alt=""
+                        alt="Avatar"
                         className="w-8 h-8 rounded-full"
                       />
                     ) : (
@@ -196,9 +218,10 @@ const EtudiantTable = () => {
                       alt="delete"
                       width={20}
                       height={20}
-                      onClick={toggleIsSur}
+                      onClick={() => handleDelete(etudiant.id)}
+                      className="cursor-pointer"
                     />
-                  </div>
+                    </div>
                 </td>
               </tr>
             ))}
@@ -225,7 +248,7 @@ const EtudiantTable = () => {
         </div>
       </div>
 
-      {/* Overlay et formulaire modal pour l'ajout d'un étudiant */}
+      {/* Modal pour l'ajout d'un étudiant */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -243,7 +266,7 @@ const EtudiantTable = () => {
         </div>
       )}
 
-      {/* Overlay et formulaire modal pour la mise à jour d'un étudiant */}
+      {/* Modal pour la mise à jour d'un étudiant */}
       {isUpdateModalOpen && selectedEtudiant && (
         <UpdateEtudiantModal
           etudiant={selectedEtudiant}
@@ -252,7 +275,7 @@ const EtudiantTable = () => {
         />
       )}
 
-      {/* Overlay et modal de confirmation pour la suppression */}
+      {/* Modal de confirmation pour la suppression */}
       {isSur && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -263,12 +286,12 @@ const EtudiantTable = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-3xl font-bold text-center">
-              Supprimer un ETudiant
+              Supprimer un Étudiant
             </h2>
             <form>
               <div className="flex gap-2 text-center flex-col mt-6">
                 <div className="text-lg flex justify-center font-medium w-[300px]">
-                  Êtes-vous sûr de vouloir effectuer cette opération?
+                  Êtes-vous sûr de vouloir effectuer cette opération ?
                 </div>
                 <div className="flex justify-between items-center">
                   <button className="text-xl bg-green-500 rounded-xl px-10 py-2 text-white">
@@ -279,7 +302,7 @@ const EtudiantTable = () => {
                   </button>
                 </div>
               </div>
-            </form> 
+            </form>
           </div>
         </div>
       )}

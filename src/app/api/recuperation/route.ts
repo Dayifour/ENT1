@@ -13,6 +13,11 @@ export async function GET() {
         paiements: true, // Inclure les paiements effectués
       },
     });
+ 
+     // Vérification si les étudiants sont trouvés
+     if (!students || students.length === 0) {
+      throw new Error('Aucun étudiant trouvé');
+    }
 
     return NextResponse.json(students, { status: 200 });
   } catch (error) {

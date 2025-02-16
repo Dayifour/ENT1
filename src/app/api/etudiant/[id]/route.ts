@@ -40,3 +40,28 @@ export async function PUT(
     );
   }
 }
+
+// DELETE
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  try {
+    await prisma.etudiants.delete({
+      where: { id: Number(id) },
+    });
+
+    return NextResponse.json(
+      { message: "Étudiant supprimé avec succès" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Erreur lors de la suppression :", error);
+    return NextResponse.json(
+      { error: "Échec de la suppression" },
+      { status: 500 }
+    );
+  }
+}
