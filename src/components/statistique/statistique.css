@@ -1,0 +1,45 @@
+.gridStat,
+.graph {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 20px;
+  margin-bottom: 8px;
+  transition-duration: 300ms;
+}
+.graph1,
+.graph2,
+.gridenf {
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 400ms;
+}
+.gridenf h3,
+.gridenf p {
+  opacity: 1;
+  transition: opacity 0.3s ease, transforme 0.3s ease;
+}
+.gridenf:hover,
+.graph1:hover,
+.graph2:hover {
+  transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+#trendChart {
+  height: 300px;
+}
+.gridenf:hover h3 {
+  transform: translateY(-5px);
+  opacity: 0.9;
+}
+.gridenf:hover p {
+  transform: translateY(5px);
+  opacity: 0.8;
+}
