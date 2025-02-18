@@ -1,13 +1,8 @@
 "use client";
-<<<<<<<< HEAD:src/app/etudiant/messages/page.tsx
-import Calendrier from "@/component/calendrier/Calendrier";
-import SmallIconCard from "@/component/smallIconCard/SmallIconCard";
-// import UserCard from "@/component/userCard/UserCard";
-========
+
 import Calendrier from "@/components/calendrier/Calendrier";
 import SmallIconCard from "@/components/smallIconCard/SmallIconCard";
 // import UserCard from "@/components/userCard/UserCard";
->>>>>>>> fa997886c0af125324b7f3364140b1f43803b458:src/app/(root)/etudiant/messages/page.tsx
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const ClasseMessage = () => {

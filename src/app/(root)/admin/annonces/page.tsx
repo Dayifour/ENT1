@@ -1,12 +1,6 @@
 "use client";
 
-<<<<<<< HEAD:src/app/etudiant/annonces/page.tsx
-import Annonce from "@/component/annonceCard/Annonce";
-import Calendrier from "@/component/calendrier/Calendrier";
-=======
 import Annonce from "@/components/annonceCard/Annonce";
-import Calendar from "@/components/calendar/Calendar";
->>>>>>> fa997886c0af125324b7f3364140b1f43803b458:src/app/(root)/admin/annonces/page.tsx
 
 export default function LesAnnonces() {
   const annonces = [
@@ -59,9 +53,7 @@ export default function LesAnnonces() {
           ))}
         </div>
       </div>
-      <div className="">
-        <Calendrier />
-      </div>
+      <div className="">{/* <Calendrier /> */}</div>
     </div>
   );
 }

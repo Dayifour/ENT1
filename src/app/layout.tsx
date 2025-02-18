@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 // import type { Metadata } from "next";
-import { Inter, IBM_Plex_Serif } from "next/font/google";
+import { IBM_Plex_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -66,24 +66,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-<<<<<<< HEAD
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Container principal */}
-        <div className="flex flex-row">
-          <div className="w-[250px]">
-            <Sidebar />
-          </div>
-          <div className="w-full h-screen overflow-scroll flex-col min-h-screen overflow-x-hidden">
-            <Header />
-            <div className="flex z-20">{children}</div>
-          </div>
-        </div>
-=======
       <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>
         {children}
->>>>>>> fa997886c0af125324b7f3364140b1f43803b458
       </body>
     </html>
   );
