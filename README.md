@@ -40,11 +40,15 @@ cd ENT
 3. **Configure the environment**
    Create a '.env.local' file at the root of the project and add:
    DATABASE_URL="votre_url_de_base_de_donnees"
-NEXTAUTH_SECRET="votre_secret"
+    NEXTAUTH_SECRET="votre_secret"
 4. **Run database migrations**
-   '''bash npx prisma migrate dev --name init '''
+```bash
+ npx prisma migrate dev --name init
+```
 5. **Launch the application**
-  '''bash npm run dev '''
+```bash
+ npm run dev
+```
 ##📅 Roadmap
  - [ ] Finalization of the authentication system
  - [ ] Addition of advanced course management
