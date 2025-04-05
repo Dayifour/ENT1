@@ -44,13 +44,13 @@ NEXTAUTH_SECRET="votre_secret"
 4. **Run database migrations**
    '''bash npx prisma migrate dev --name init '''
 5. **Launch the application**
-  '''bash npm run dev ''' ##
-📅 Roadmap
+  '''bash npm run dev '''
+##📅 Roadmap
  - [ ] Finalization of the authentication system
  - [ ] Addition of advanced course management
  - [ ] Integration of an administrator dashboard
  - [ ] Improvement of the UX/UI
- - [ ] ## 🤝 Contribution Contributions are welcome!
+## 🤝 Contribution Contributions are welcome!
  - [ ] 1. Forking the repo
  - [ ] 2. Create a branch ('git checkout -b feature-xyz')
  - [ ] 3. Commit your changes ('git commit -m 'Adding a new feature')
