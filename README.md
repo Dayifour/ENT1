@@ -1,88 +1,29 @@
-# 📚 ENT - Environnement Numérique de Travail
+📚 # ENT - Digital Work Environment
 
-Bienvenue sur **ENT**, une plateforme e-learning interactive conçue pour améliorer l'expérience d'apprentissage en ligne. Ce projet permet aux enseignants de gérer leurs cours et aux étudiants d'accéder facilement aux ressources pédagogiques.
+Welcome to **ENT**, an interactive e-learning platform designed to enhance the online learning experience. This project allows teachers to manage their courses and students to easily access educational resources.
 
-## 🚀 Fonctionnalités principales
+## 🚀 Key features
 
-- 🔐 **Authentification sécurisée** (inscription, connexion, gestion des rôles)
-- 📚 **Gestion des cours** (création, modification, suppression)
-- 🎥 **Affichage et suivi des vidéos de formation**
-- 📝 **Système de quiz interactifs**
-- 📊 **Suivi des progrès des étudiants**
-- 💬 **Forum de discussion** pour l'échange entre apprenants et enseignants
+- 🔐 **Secure authentication** (registration, login, role management)
+- 📚 **Course management** (creation, modification, deletion)
+- 🎥 **Display and follow-up of training videos**
+- 📝 **Interactive quiz system**
+- 📊 **Tracking student progress**
+- 💬 **Discussion forum** for the exchange between learners and teachers
 
-## 🛠️ Technologies utilisées
+## 🛠️ Technologies used
 
-- **Framework** : Next.js
-- **Frontend** : React, Tailwind CSS
-- **Backend** : Next.js API Routes, Prisma
-- **Base de données** : MySQL
-- **Authentification** : NextAuth.js
+- **Framework**: Next.js
+- **Frontend**: React, Tailwind CSS
+- Backend: Next.js API Routes, Prisma
+- **Database**: MySQL
+- **Authentication**: NextAuth.js
 
 ## 📥 Installation
 
-### 📌 Prérequis
+### 📌 Prerequisites
 
 - **Node.js 18+**
-- **Base de données MySQL ou MongoDB configurée**
-- **Prisma installé**
-
-### 🔧 Étapes d'installation
-
-1. **Cloner le projet**
-
-```bash
- git clone https://github.com/ton-utilisateur/ENT.git
- cd ENT
-```
-
-2. **Installer les dépendances**
-
-```bash
- npm install
-```
-
-3. **Configurer l'environnement**
-   Créer un fichier `.env.local` à la racine du projet et ajouter :
-
-```env
-DATABASE_URL="votre_url_de_base_de_donnees"
-NEXTAUTH_SECRET="votre_secret"
-```
-
-4. **Exécuter les migrations de base de données**
-
-```bash
- npx prisma migrate dev --name init
-```
-
-5. **Lancer l'application**
-
-```bash
- npm run dev
-```
-
-## 📅 Roadmap
-
-- [ ] Finalisation du système d'authentification
-- [ ] Ajout de la gestion avancée des cours
-- [ ] Intégration d'un tableau de bord administrateur
-- [ ] Amélioration de l'UX/UI
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues !
-
-1. Forker le repo
-2. Créer une branche (`git checkout -b feature-xyz`)
-3. Commiter vos modifications (`git commit -m "Ajout d'une nouvelle fonctionnalité"`)
-4. Pousser la branche (`git push origin feature-xyz`)
-5. Ouvrir une Pull Request
-
-## 📜 Licence
-
-Ce projet est sous licence MIT. Voir [LICENSE](LICENSE) pour plus d'informations.
-
----
-
-✨ _Ce projet est activement développé, restez à l'affût des mises à jour !_
+- **MySQL or MongoDB database configured**
+- **Prisma installed** ### 🔧 Installation steps 1. **Clone Project** '''bash git clone https://github.com/ton-utilisateur/ENT.git cd ENT ''' 2. **Install dependencies** '''bash npm install''' 3. **Configure the environment** Create a '.env.local' file at the root of the project and add: '''env DATABASE_URL="votre_url_de_base_de_donnees" NEXTAUTH_SECRET="votre_secret" ''' 4. **Run database migrations** '''bash npx prisma migrate dev --name init ''' 5. **Launch the application** '''bash npm run dev ''' ## 📅 Roadmap - [ ] Finalization of the authentication system - [ ] Addition of advanced course management - [ ] Integration of an administrator dashboard - [ ] Improvement of the UX/UI ## 🤝 Contribution Contributions are welcome! 1. Forking the repo 2. Create a branch ('git checkout -b feature-xyz') 3. Commit your changes ('git commit -m 'Adding a new feature') 4. Push Branch ('git push origin feature-xyz')
+5. Open a Pull Request ## 📜 License This project is licensed under MIT. See [LICENSE] for more information. ✨ --- _Ce project is actively developed, stay tuned for updates!_
