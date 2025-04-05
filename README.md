@@ -1,4 +1,4 @@
-📚 # ENT - Digital Work Environment
+# 📚 ENT - Digital Work Environment
 
 Welcome to **ENT**, an interactive e-learning platform designed to enhance the online learning experience. This project allows teachers to manage their courses and students to easily access educational resources.
 
@@ -49,7 +49,7 @@ cd ENT
 ```bash
  npm run dev
 ```
-##📅 Roadmap
+## 📅 Roadmap
  - [ ] Finalization of the authentication system
  - [ ] Addition of advanced course management
  - [ ] Integration of an administrator dashboard
@@ -60,4 +60,11 @@ cd ENT
  - [ ] 3. Commit your changes ('git commit -m 'Adding a new feature')
  - [ ] 4. Push Branch ('git push origin feature-xyz')
  - [ ] 5. Open a Pull Request
-## 📜 License This project is licensed under MIT. See [LICENSE] for more information. ✨ --- _Ce project is actively developed, stay tuned for updates!_
+## 📜 License
+
+This project is licensed under the MIT License. See [LICENSE] for more information.
+
+---
+
+✨ _This project is actively being developed, stay tuned for updates!_
+
